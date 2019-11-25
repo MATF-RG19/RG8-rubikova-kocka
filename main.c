@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <GL/glut.h>
-
+#include "lib.h"
 
 static int window_width;
 static int window_height;
@@ -21,7 +21,8 @@ int main(int argc, char **argv){
     glutReshapeFunc(on_reshape);
     glutDisplayFunc(on_display);
     
-    glClearColor(0, 0, 0, 0);
+    
+    glClearColor(1, 1, 1, 0);
     glEnable(GL_DEPTH_TEST);
     
     glutMainLoop();
@@ -62,7 +63,6 @@ static void on_display(void){
             0, 0, 0,
             0, 1, 0
         );
-    glColor3f(0, 1, 0);
-    glutWireCube(1);
+    cube1(1, 0, 0);
     glutSwapBuffers();
 }
