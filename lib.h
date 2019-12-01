@@ -14,11 +14,11 @@ typedef struct Cube{
     double z;
     int type;
 }cube;
-int colors[COLOR_MAX][COLOR_MAX];
+double colors[COLOR_MAX][COLOR_MAX];
 cube cubes[CUBE_MAX];
 
-extern void assign_colors(int all_colors[], int type);
-extern void draw_cube(cube c, int colors[COLOR_MAX][COLOR_MAX]);
-extern void draw_cube1(cube c, int color[COLOR_MAX]);
-extern void draw_cube2(cube c, int color1[COLOR_MAX], int color2[COLOR_MAX]);
-extern void draw_cube3(cube c, int color1[COLOR_MAX], int color2[COLOR_MAX], int color3[COLOR_MAX]);
+extern void assign_colors(double all_colors[], int type);
+extern void draw_cube(cube c, double colors[COLOR_MAX][COLOR_MAX]);
+extern void draw_cube1(cube c, double color[COLOR_MAX]);
+extern void draw_cube2(cube c, double color1[COLOR_MAX], double color2[COLOR_MAX]);
+extern void draw_cube3(cube c, double color1[COLOR_MAX], double color2[COLOR_MAX], double color3[COLOR_MAX]);

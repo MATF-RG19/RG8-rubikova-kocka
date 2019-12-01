@@ -1,20 +1,21 @@
 #include "lib.h"
 #include "colors.h"
 
-extern void draw_cube(cube c , int color[COLOR_MAX][COLOR_MAX]){
+extern void draw_cube(cube c , double colors[COLOR_MAX][COLOR_MAX]){
     
     
     if(c.type==ONE_SIDE){
-        draw_cube1(c, color[0]);
+        draw_cube1(c, colors[0]);
     }
     if(c.type==TWO_SIDES){
-        draw_cube2(c, color[0], color[1]);
+        draw_cube2(c, colors[0], colors[1]);
     }
     if(c.type==THREE_SIDES){
-        draw_cube3(c, color[0], color[1], color[2]);
+
+        draw_cube3(c, colors[0], colors[1], colors[2]);
     }
 }
-extern void draw_cube3(cube c, int color1[], int color2[], int color3[]){
+extern void draw_cube3(cube c, double color1[], double color2[], double color3[]){
     
     glColor3f(0, 0, 0);
     glutSolidCube(1);
@@ -34,17 +35,18 @@ extern void draw_cube3(cube c, int color1[], int color2[], int color3[]){
         
     glEnd();
     glColor3f(color3[0], color3[1], color3[2]);
+    
     glBegin(GL_POLYGON);
-        glVertex3f(-c.z, -c.x, c.y);
-        glVertex3f(-c.z, -c.x, -c.y);
-        glVertex3f(-c.z, c.x, -c.y);
-        glVertex3f(-c.z, c.x, c.y);
+        glVertex3f(c.x, c.y, c.z);
+        glVertex3f(c.x, c.y, -c.z);
+        glVertex3f(-c.x, c.y, -c.z);
+        glVertex3f(-c.x, c.y, c.z);
         
     glEnd();
     
     
 }
-extern void draw_cube2(cube c, int color1[], int color2[]){
+extern void draw_cube2(cube c, double color1[], double color2[]){
     
     glColor3f(0, 0, 0);
     glutSolidCube(1);
@@ -65,7 +67,7 @@ extern void draw_cube2(cube c, int color1[], int color2[]){
     glEnd();
     
 }
-extern void draw_cube1(cube c,int color[]){
+extern void draw_cube1(cube c,double color[]){
     
     glColor3f(0, 0, 0);
     glutSolidCube(1);
@@ -79,7 +81,7 @@ extern void draw_cube1(cube c,int color[]){
     
     
 }
-void assign_colors(int all_colors[], int type){
+void assign_colors(double all_colors[], int type){
     
     if(type==ONE_SIDE){
         for(int i=0;i<COLOR_MAX;i++){
@@ -89,16 +91,20 @@ void assign_colors(int all_colors[], int type){
     else if(type==TWO_SIDES){
         for(int i=0;i<COLOR_MAX;i++){
             colors[0][i]=all_colors[i];
-            colors[1][i]=all_colors[2+i];
+            colors[1][i]=all_colors[3+i];
         }
     }
     else if(type==THREE_SIDES){
         for(int i=0;i<COLOR_MAX;i++){
             colors[0][i]=all_colors[i];
-            colors[1][i]=all_colors[2+i];
-            colors[2][i]=all_colors[4+i];
+            colors[1][i]=all_colors[3+i];
+            colors[2][i]=all_colors[6+i];
+            
         }
+       
     }
+    
+    
     
 }
 

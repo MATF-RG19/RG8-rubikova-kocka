@@ -42,11 +42,14 @@ int main(int argc, char **argv){
 void init(){
     
     cube c;
-    c.type=TWO_SIDES;
-    c.x=0.5;
-    c.y=0.5;
+    c.type=THREE_SIDES;
+    c.x=0.6;
+    c.y=0.6;
     c.z=0.6;
-    int color[]={YELLOW, BLUE};
+    
+
+    double color[]={GREEN, BLUE, RED};
+    
     assign_colors(color, c.type);
     cubes[0]=c;
     draw_cube(c, colors);
