@@ -12,8 +12,10 @@ static void on_display();
 static void on_keyboard(unsigned char key, int x, int y);
 static void on_reshape(int width, int height);
 static void init();
-
-
+static double x=0.6;
+static double y=0.6;
+static double z=0.6;
+static int l=0;
 int main(int argc, char **argv){
     
 
@@ -29,7 +31,7 @@ int main(int argc, char **argv){
     glutDisplayFunc(on_display);
     
     
-    glClearColor(1, 1, 1, 0);
+    glClearColor(0, 0, 0, 0);
     glEnable(GL_DEPTH_TEST);
     
     glutMainLoop();
@@ -38,21 +40,231 @@ int main(int argc, char **argv){
     
     
 }
-
-void init(){
+void middle_layer(){
     
     cube c;
-    c.type=THREE_SIDES;
+    
     c.x=0.6;
     c.y=0.6;
     c.z=0.6;
     
-
-    double color[]={GREEN, BLUE, RED};
+    double middle_colors[4][3]={{GREEN}, {BLUE}, {YELLOW}, {RED}};
     
+    double factor = 1.5;
+    int ind=0;
+    glTranslatef(0, -factor, 0);
+    for(int i=0, k=0;i<8;i++){
+        
+        if(i%2==0){
+            c.type=TWO_SIDES;
+            double tmp1[6];
+            for(int j=0;j<3;j++){
+                tmp1[j]=middle_colors[k%4][j%3];
+            }
+            for(int j=3;j<6;j++){
+                tmp1[j]=middle_colors[(k+1)%4][j%3];
+                
+            }
+            assign_colors(tmp1, c.type);
+            glTranslatef(factor,0 , 0);
+            ind++;
+            cubes[i]=c;
+            k++;
+            draw_cube(c, colors);
+        }
+        else{
+            c.type=ONE_SIDE;
+            double tmp2[3];
+            for(int j=0;j<3;j++){
+                tmp2[j]=middle_colors[k%4][j%3];
+            }
+            assign_colors(tmp2, c.type);
+            cubes[i]=c;
+            
+            glRotatef(90, 0, 1, 0);
+            if(ind==2){
+                glTranslatef(-factor,0 , 0);
+                ind=0;
+            }
+            else{
+                glTranslatef(factor,0 , 0);
+            }
+                
+            ind++;
+            draw_cube(c, colors);
+                
+            
+        }
+    }
+}
+void bottom_layer(){
+    
+    cube c;
+    
+    c.x=0.6;
+    c.y=-0.6;
+    c.z=0.6;
+    
+    double bottom_colors[5][3]={{GREEN}, {BLUE}, {YELLOW}, {RED}, {ORANGE}};
+    
+    double factor = 1.5;
+    int ind=0;
+    glTranslatef(0, -factor, 0);
+    
+    for(int k=0, i=0;i<8;i++){
+        
+        if(i%2==0){
+            c.type=THREE_SIDES;
+            double tmp1[9];
+            for(int j=0;j<3;j++){
+                tmp1[j]=bottom_colors[k%4][j%3];
+            }
+            for(int j=3;j<6;j++){
+                tmp1[j]=bottom_colors[(k+1)%4][j%3];
+                
+            }
+            for(int j=6;j<9;j++){
+                tmp1[j]=bottom_colors[4][j%3];
+                
+            }
+            assign_colors(tmp1, c.type);
+            glTranslatef(factor,0 , 0);
+            ind++;
+            cubes[l]=c;
+            k++;
+            draw_cube(c, colors);
+        }
+        else{
+            c.type=TWO_SIDES;
+            double tmp2[6];
+            for(int j=0;j<3;j++){
+                tmp2[j]=bottom_colors[k%4][j%3];
+            }
+            for(int j=3;j<6;j++){
+                tmp2[j]=bottom_colors[4][j%3];
+            }
+            assign_colors(tmp2, c.type);
+            cubes[l]=c;
+            
+            
+            glRotatef(90, 0, 1, 0);
+            if(ind==2){
+                glTranslatef(-factor,0 , 0);
+                ind=0;
+            }
+            else{
+                glTranslatef(factor,0 , 0);
+            }
+                
+            ind++;
+           
+             glPushMatrix();
+                glRotatef(-90, 0, 0, 1);
+                draw_cube(c, colors);
+            glPopMatrix();
+                
+            
+        }
+    }
+   c.type=ONE_SIDE;
+    cubes[++l]=c;
+    double color[]={ORANGE};
     assign_colors(color, c.type);
-    cubes[0]=c;
-    draw_cube(c, colors);
+    glPushMatrix();
+        glTranslatef(0,0,-1.5);
+        glRotatef(90, 1, 0, 0);
+        draw_cube(c, colors);
+    glPopMatrix();
+}
+void top_layer(){
+    
+    
+    cube c;
+    
+    c.x=0.6;
+    c.y=0.6;
+    c.z=0.6;
+    
+    double top_colors[5][3]={{GREEN}, {BLUE}, {YELLOW}, {RED}, {WHITE}};
+    
+    double factor = 1.5;
+    int ind=0;
+    
+    for(int i=0, k=0;i<8;i++, l++){
+        
+        if(i%2==0){
+            c.type=THREE_SIDES;
+            double tmp1[9];
+            for(int j=0;j<3;j++){
+                tmp1[j]=top_colors[k%4][j%3];
+            }
+            for(int j=3;j<6;j++){
+                tmp1[j]=top_colors[(k+1)%4][j%3];
+                
+            }
+            for(int j=6;j<9;j++){
+                tmp1[j]=top_colors[4][j%3];
+                
+            }
+            assign_colors(tmp1, c.type);
+            glTranslatef(factor,0 , 0);
+            ind++;
+            cubes[l]=c;
+            k++;
+            draw_cube(c, colors);
+        }
+        else{
+            c.type=TWO_SIDES;
+            double tmp2[6];
+            for(int j=0;j<3;j++){
+                tmp2[j]=top_colors[k%4][j%3];
+            }
+            for(int j=3;j<6;j++){
+                tmp2[j]=top_colors[4][j%3];
+            }
+            assign_colors(tmp2, c.type);
+            cubes[l]=c;
+            
+            glRotatef(90, 0, 1, 0);
+            if(ind==2){
+                glTranslatef(-factor,0 , 0);
+                ind=0;
+            }
+            else{
+                glTranslatef(factor,0 , 0);
+            }
+                
+            ind++;
+            glPushMatrix();
+                glRotatef(90, 0, 0, 1);
+                draw_cube(c, colors);
+            glPopMatrix();
+            
+                
+            
+        }
+    }
+    c.type=ONE_SIDE;
+    cubes[++l]=c;
+    double color[]={WHITE};
+    assign_colors(color, c.type);
+    glPushMatrix();
+        glTranslatef(0,0,-factor);
+        glRotatef(-90, 1, 0, 0);
+        draw_cube(c, colors);
+    glPopMatrix();
+}
+void init(){
+    
+    
+    //u nizu cubes su poredjani redom od gornjeg do donjeg sloja 
+    top_layer();
+    middle_layer();
+    bottom_layer();
+    
+    
+    
+    
 }
 static void on_keyboard(unsigned char key, int x, int y){
     switch (key) {
@@ -77,12 +289,12 @@ static void on_display(void){
     gluPerspective(
             60,
             window_width/(float)window_height,
-            1, 5);
+            1, 20);
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(
-            1, 1, 3,
+            6, 6, 6,
             0, 0, 0,
             0, 1, 0
         );

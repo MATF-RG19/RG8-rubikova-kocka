@@ -28,10 +28,10 @@ extern void draw_cube3(cube c, double color1[], double color2[], double color3[]
     glEnd();
     glColor3f(color2[0], color2[1], color2[2]);
     glBegin(GL_POLYGON);
-        glVertex3f(c.z, -c.x, c.y);
-        glVertex3f(c.z, -c.x, -c.y);
-        glVertex3f(c.z, c.x, -c.y);
-        glVertex3f(c.z, c.x, c.y);
+        glVertex3f(c.x, -c.y, c.x);
+        glVertex3f(c.x, -c.y, -c.x);
+        glVertex3f(c.x, c.y, -c.x);
+        glVertex3f(c.x, c.y, c.x);
         
     glEnd();
     glColor3f(color3[0], color3[1], color3[2]);
@@ -53,17 +53,17 @@ extern void draw_cube2(cube c, double color1[], double color2[]){
     glColor3f(color1[0], color1[1], color1[2]);
     glBegin(GL_POLYGON);
         glVertex3f(c.x, -c.y, c.z);
-        glVertex3f(-c.x, -c.y, c.z);
-        glVertex3f(-c.x, c.y, c.z);
         glVertex3f(c.x, c.y, c.z);
+        glVertex3f(-c.x, c.y, c.z);
+        glVertex3f(-c.x, -c.y, c.z);
         
     glEnd();
     glColor3f(color2[0], color2[1], color2[2]);
     glBegin(GL_POLYGON);
-        glVertex3f(c.z, -c.x, c.y);
-        glVertex3f(c.z, -c.x, -c.y);
-        glVertex3f(c.z, c.x, -c.y);
-        glVertex3f(c.z, c.x, c.y);
+        glVertex3f(c.x, -c.y, c.z);
+        glVertex3f(c.x, -c.y, -c.z);
+        glVertex3f(c.x, c.y, -c.z);
+        glVertex3f(c.x, c.y, c.z);
     glEnd();
     
 }
@@ -74,9 +74,9 @@ extern void draw_cube1(cube c,double color[]){
     glColor3f(color[0], color[1], color[2]);
     glBegin(GL_POLYGON);
         glVertex3f(c.x, -c.y, c.z);
-        glVertex3f(-c.x, -c.y, c.z);
-        glVertex3f(-c.x, c.y, c.z);
         glVertex3f(c.x, c.y, c.z);
+        glVertex3f(-c.x, c.y, c.z);
+        glVertex3f(-c.x, -c.y, c.z);
     glEnd();
     
     
