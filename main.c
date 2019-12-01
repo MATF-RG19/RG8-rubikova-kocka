@@ -2,14 +2,21 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include "lib.h"
+#include "colors.h"
+
+
 
 static int window_width;
 static int window_height;
 static void on_display();
 static void on_keyboard(unsigned char key, int x, int y);
 static void on_reshape(int width, int height);
+static void init();
+
+
 int main(int argc, char **argv){
     
+
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     
@@ -31,11 +38,24 @@ int main(int argc, char **argv){
     
     
 }
+
+void init(){
+    
+    cube c;
+    c.type=TWO_SIDES;
+    c.x=0.5;
+    c.y=0.5;
+    c.z=0.6;
+    int color[]={YELLOW, BLUE};
+    assign_colors(color, c.type);
+    cubes[0]=c;
+    draw_cube(c, colors);
+}
 static void on_keyboard(unsigned char key, int x, int y){
     switch (key) {
-    case 27:
-        exit(0);
-        break;
+        case 27:
+            exit(0);
+            break;
     }
 }
 
@@ -63,6 +83,6 @@ static void on_display(void){
             0, 0, 0,
             0, 1, 0
         );
-    cube1(1, 0, 0);
+    init();
     glutSwapBuffers();
 }
