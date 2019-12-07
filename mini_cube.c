@@ -5,26 +5,29 @@
 #endif
 
 
-extern void draw_cube(cube c , double colors[COLOR_MAX][COLOR_MAX], double x, double y, double  z){
+extern void draw_cube(cube c , double x, double y, double  z){
     
     
     if(c.type==ONE_SIDE){
-        draw_cube1( colors[0], x, y, z);
+        draw_cube1( c, x, y, z);
         
     }
     if(c.type==TWO_SIDES){
-        draw_cube2( colors[0], colors[1], x, y, z);
+        draw_cube2( c, x, y, z);
         
     }
     if(c.type==THREE_SIDES){
 
-        draw_cube3( colors[0], colors[1], colors[2], x, y, z);
+        draw_cube3( c, x, y, z);
     }
 }
-extern void draw_cube3( double color1[], double color2[], double color3[], double x, double y, double  z){
+extern void draw_cube3( cube c, double x, double y, double  z){
+    
     
     glColor3f(0, 0, 0);
     glutSolidCube(1);
+    double color1[3];
+    assign_colors(c.clrs[0], &color1);
     glColor3f(color1[0], color1[1], color1[2]);
     glBegin(GL_POLYGON);
         glVertex3f(x, -y, z);
@@ -32,6 +35,8 @@ extern void draw_cube3( double color1[], double color2[], double color3[], doubl
         glVertex3f(-x, y, z);
         glVertex3f(x, y, z);
     glEnd();
+    double color2[3];
+    assign_colors(c.clrs[1], &color2);
     glColor3f(color2[0], color2[1], color2[2]);
     glBegin(GL_POLYGON);
         glVertex3f(x, -y, x);
@@ -40,6 +45,8 @@ extern void draw_cube3( double color1[], double color2[], double color3[], doubl
         glVertex3f(x, y, x);
         
     glEnd();
+    double color3[3];
+    assign_colors(c.clrs[2], &color3);
     glColor3f(color3[0], color3[1], color3[2]);
     
     glBegin(GL_POLYGON);
@@ -52,10 +59,12 @@ extern void draw_cube3( double color1[], double color2[], double color3[], doubl
     
     
 }
-extern void draw_cube2(double color1[], double color2[], double x, double y, double  z){
+extern void draw_cube2(cube c, double x, double y, double  z){
     
     glColor3f(0, 0, 0);
     glutSolidCube(1);
+    double color1[3];
+    assign_colors(c.clrs[0], &color1);
     glColor3f(color1[0], color1[1], color1[2]);
     glBegin(GL_POLYGON);
         glVertex3f(x, -y, z);
@@ -64,6 +73,8 @@ extern void draw_cube2(double color1[], double color2[], double x, double y, dou
         glVertex3f(-x, -y, z);
         
     glEnd();
+    double color2[3];
+    assign_colors(c.clrs[1], &color2);
     glColor3f(color2[0], color2[1], color2[2]);
     glBegin(GL_POLYGON);
         glVertex3f(x, -y, z);
@@ -73,10 +84,12 @@ extern void draw_cube2(double color1[], double color2[], double x, double y, dou
     glEnd();
     
 }
-extern void draw_cube1(double color[], double x, double y, double  z){
+extern void draw_cube1(cube c, double x, double y, double  z){
     
     glColor3f(0, 0, 0);
     glutSolidCube(1);
+    double color[3];
+    assign_colors(c.clrs[0], &color);
     glColor3f(color[0], color[1], color[2]);
     glBegin(GL_POLYGON);
         glVertex3f(x, -y, z);
@@ -87,35 +100,51 @@ extern void draw_cube1(double color[], double x, double y, double  z){
     
     
 }
-void assign_colors(double all_colors[], cube c){
+void assign_colors(clr t, double (*color)[3]){
     
-    if(c.type==ONE_SIDE){
-        for(int i=0;i<COLOR_MAX;i++){
-            colors[0][i]=all_colors[i];
+    if(t==yellow){
+        double c[]={YELLOW};
+        for(int i=0;i<3;i++){
+            (*color)[i]=c[i];
         }
-        c.clrs[0]=recognize_color(colors[0]);
+        
+        return;
     }
-    else if(c.type==TWO_SIDES){
-        for(int i=0;i<COLOR_MAX;i++){
-            colors[0][i]=all_colors[i];
-            colors[1][i]=all_colors[3+i];
+    if(t==white){
+        double c[]={WHITE};
+        for(int i=0;i<3;i++){
+            (*color)[i]=c[i];
         }
-        c.clrs[0]=recognize_color(colors[0]);
-        c.clrs[1]=recognize_color(colors[1]);
+        return;
     }
-    else if(c.type==THREE_SIDES){
-        for(int i=0;i<COLOR_MAX;i++){
-            colors[0][i]=all_colors[i];
-            colors[1][i]=all_colors[3+i];
-            colors[2][i]=all_colors[6+i];
-            
+    if(t==blue){
+        double c[]={BLUE};
+        for(int i=0;i<3;i++){
+            (*color)[i]=c[i];
         }
-        c.clrs[0]=recognize_color(colors[0]);
-        c.clrs[1]=recognize_color(colors[1]);
-        c.clrs[2]=recognize_color(colors[2]);
-       
+        return;
     }
-    
+    if(t==red){
+        double c[]={RED};
+        for(int i=0;i<3;i++){
+            (*color)[i]=c[i];
+        }
+        return;
+    }
+    if(t==green){
+        double c[]={GREEN};
+        for(int i=0;i<3;i++){
+            (*color)[i]=c[i];
+        }
+        return;
+    }
+    if(t==orange){
+        double c[]={ORANGE};
+        for(int i=0;i<3;i++){
+            (*color)[i]=c[i];
+        }
+        return;
+    }
     
     
 }
@@ -140,12 +169,12 @@ enum all_cube_colors recognize_color(double colors[] ){
     if(colors[0]==1 && colors[1]==0.5 && colors[2]==0){
         return orange;
     }
-    return 0;
+    return -1;
 }
 
-void init_colors(cube c){
+void init_colors(cube *c){
     
     for(int i=0;i<3;i++){
-        c.clrs[i]=-1;
+        c->clrs[i]=-1;
     }
 }

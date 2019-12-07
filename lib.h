@@ -15,7 +15,7 @@ typedef struct Cube{
 }cube;
 
 
-double colors[COLOR_MAX][COLOR_MAX];
+
 
 //niz se inicijalizuje tako sto svaka druga kockica je istog tipa
 //u gornjem sloju su to tipa: tri obojene(indeks paran), dve obojene strane(indeks neparan), jedna obojena strana na poziciji 8, indeksi [0-8]
@@ -27,10 +27,12 @@ extern enum all_cube_colors recognize_color(double colors[]);
 extern void top_layer();
 extern void middle_layer();
 extern void bottom_layer();
+extern void right_rotation(double fi);
+extern void top_rotation(double fi);
 
-extern void assign_colors(double all_colors[], cube c);
-extern void draw_cube(cube c, double colors[COLOR_MAX][COLOR_MAX], double x, double y, double  z);
-extern void draw_cube1(double color[COLOR_MAX], double x, double y, double  z);
-extern void draw_cube2(double color1[COLOR_MAX], double color2[COLOR_MAX], double x, double y, double  z);
-extern void draw_cube3(double color1[COLOR_MAX], double color2[COLOR_MAX], double color3[COLOR_MAX], double x, double y, double  z);
-extern void init_colors(cube c);
+extern void assign_colors(enum all_cube_colors t, double (*c)[3]);
+extern void draw_cube(cube c, double x, double y, double  z);
+extern void draw_cube1(cube c, double x, double y, double  z);
+extern void draw_cube2(cube c,  double x, double y, double  z);
+extern void draw_cube3(cube c, double x, double y, double  z);
+extern void init_colors(cube* c);
