@@ -1,6 +1,6 @@
 PROGRAM = rubik
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
+CFLAGS = -Wall -Wextra -std=c99 -lm
 LDFLAGS = -lglut -lGLU -lGL
 
 
