@@ -80,6 +80,8 @@ void init(){
         top_layer();
         middle_layer();
         bottom_layer();
+        //otklanjam jednu translaciju da bih iscrtavala sredisnju kockicu
+        glTranslatef(0, 1.5, -1.5);
     
     
     
@@ -94,6 +96,7 @@ static void on_timer(int value){
     }
     
     fi+=18;
+    //potrebna mi je rotacija tacno za 90 stepeni, medjutim dolazi i do segmentation fault ako se izbrise ovaj if
     if(fi>90){
         animation_ongoing=0;
         flag=0;
@@ -150,7 +153,7 @@ static void on_display(void){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(
-            6, 6, -6,
+            6, 6, 6,
             0, 0, 0,
             0, 1, 0
         );
@@ -199,14 +202,15 @@ static void on_display(void){
         
     }*/
     
-    
+    //i bez rotacije se cudno ponasa (bele kockice se rotiraju na dole)
     
     if(flag==1){
-        printf("flag\n");
-        top_rotation(fi);
-        printf("rr\n");
         
+        printf("flag\n");
+        right_rotation(fi);
+        printf("rr\n");
     }
+    
     
     glutSwapBuffers();
 }

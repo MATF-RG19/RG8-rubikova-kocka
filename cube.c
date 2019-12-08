@@ -22,50 +22,28 @@ int top_cubes[MAX_MINI]={0, 1, 2, 3, 4,5,6,7,8};
 // middle:9, 10, 11
 // bottom: 17, 18, 19
 
-/*void init__rr_cubes(){
-    for(int i=0;i<MAX_MINI;i++){
-        if(i<=2){
-            rr_cubes[i]=cubes[i];
-            draw_cube(rr_cubes[i], colors, x, y, z);
-            printf("%i\n", i);
-        }
-        else if(i>=3 && i<6){
-            rr_cubes[i]=cubes[i+6];
-            draw_cube(rr_cubes[i], colors, x, y, z);
-            printf("%i\n", i+6);
-        }
-        else{
-            rr_cubes[i]=cubes[i+11];
-            draw_cube(rr_cubes[i], colors, x, y, z);
-            printf("%i\n", i+11);
-        }
-        
-    }
-}*/
+
+//BUG: ideja je bila da rotiram ostale kockice oko sredisnje kockice (slicno ideji sa casa kada smo radili solarni sistem)
 void right_rotation(double fi){
     
     
-    for(int i=0;i<MAX_MINI;i++){
-        printf("%i ", rr_cubes[i]);
-    }
-    printf("\n");
     glPushMatrix();
-        glTranslatef(0, 0, 0.5);
+        glRotatef(fi, 1, 0, 0);
         draw_cube(cubes[rr_cubes[4]], x, y, z);
-        
     glPopMatrix();
-    /*glTranslatef(1.5, 0, 0);
+    glTranslatef(1.5, 1.5, 1.5);
     for(int i=0;i<MAX_MINI;i++){
         if(i!=4){
             glPushMatrix();
-                glRotatef(fi/2, 1, 0, 0);
-                draw_cube(cubes[rr_cubes[i]], colors, x, y, z);
+                glRotatef(fi, 1, 0, 0);
+                draw_cube(cubes[rr_cubes[i]], x, y, z);
             glPopMatrix();
         }
         
-    }*/
+    }
     
 }
+/*
 void top_rotation(double fi){
     
     
@@ -85,7 +63,7 @@ void top_rotation(double fi){
         
     }
     
-}
+}*/
 void middle_layer(){
     
     cube c;
@@ -112,7 +90,7 @@ void middle_layer(){
                 
             }
             c.clrs[1]=recognize_color(tmp1);
-            //assign_colors(tmp1, &c);
+            
             glTranslatef(factor,0 , 0);
             ind++;
             cubes[l]=c;
@@ -126,7 +104,7 @@ void middle_layer(){
                 tmp2[j]=middle_colors[k%4][j%3];
             }
             c.clrs[0]=recognize_color(tmp2);
-            //assign_colors(tmp2, &c);
+            
             cubes[l]=c;
             
             glRotatef(90, 0, 1, 0);
@@ -180,7 +158,7 @@ void bottom_layer(){
                 
             }
             c.clrs[2]=recognize_color(tmp1);
-            //assign_colors(tmp1, &c);
+            
             glTranslatef(factor,0 , 0);
             
             ind++;
@@ -199,7 +177,7 @@ void bottom_layer(){
                 tmp2[j]=bottom_colors[4][j%3];
             }
             c.clrs[1]=recognize_color(tmp2);
-            //assign_colors(tmp2, &c);
+            
             cubes[l]=c;
             
             
@@ -230,7 +208,7 @@ void bottom_layer(){
     double color[]={ORANGE};
     init_colors(&c);
     c.clrs[0]=recognize_color(color);
-    //assign_colors(color, &c);
+    
     glPushMatrix();
         glTranslatef(0,0,-factor);
         glRotatef(90, 1, 0, 0);
@@ -272,7 +250,7 @@ void top_layer(){
                 
             }
             c.clrs[2]=recognize_color(tmp1);
-            //assign_colors(tmp1, &c);
+            
             
             glTranslatef(factor,0 , 0);
             
@@ -296,7 +274,7 @@ void top_layer(){
                 tmp2[j]=top_colors[4][j%3];
             }
             c.clrs[1]=recognize_color(tmp2);
-            //assign_colors(tmp2, &c);
+            
             
             
             glRotatef(90, 0, 1, 0);
@@ -331,7 +309,7 @@ void top_layer(){
     double color[]={WHITE};
     init_colors(&c);
     c.clrs[0]=recognize_color(color);
-    //assign_colors(color, &c);
+    
     glPushMatrix();
         glTranslatef(0,0,-factor);
         glRotatef(-90, 1, 0, 0);
