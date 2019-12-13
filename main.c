@@ -21,7 +21,11 @@ double fi=0;
 int flag;
 int main(int argc, char **argv){
     
-
+    init_rubik();
+    for(int i=0;i<CUBE_MAX;i++){
+        printf("%lf %lf %lf\n", cubes[i].x, cubes[i].y, cubes[i].z);
+    }
+    
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     
@@ -77,13 +81,16 @@ void init(){
     //u nizu cubes su poredjani redom od gornjeg do donjeg sloja 
     
     
-        top_layer();
-        middle_layer();
-        bottom_layer();
-        //otklanjam jednu translaciju da bih iscrtavala sredisnju kockicu
-        glTranslatef(0, 1.5, -1.5);
+    cube c;
     
+    c.clrs[0]=white;
+    c.clrs[1]=yellow;
+    c.clrs[2]=blue;
+    c.clrs[3]=green;
+    c.clrs[4]=red;
+    c.clrs[5]=orange;
     
+    draw_cube(c);
     
     
     
@@ -207,7 +214,7 @@ static void on_display(void){
     if(flag==1){
         
         printf("flag\n");
-        right_rotation(fi);
+        //right_rotation(fi);
         printf("rr\n");
     }
     

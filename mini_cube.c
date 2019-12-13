@@ -5,7 +5,7 @@
 #endif
 
 
-extern void draw_cube(cube c , double x, double y, double  z){
+/*extern void draw_cube(cube c , double x, double y, double  z){
     
     
     if(c.type==ONE_SIDE){
@@ -20,8 +20,72 @@ extern void draw_cube(cube c , double x, double y, double  z){
 
         draw_cube3( c, x, y, z);
     }
+}*/
+extern void draw_cube(cube c){
+    
+    double color[3];
+    double x;
+    x=0.5;
+    
+    assign_colors(c.clrs[0], &color);
+    glColor3f(color[0], color[1], color[2]);
+    //donja strana
+    glBegin(GL_POLYGON);
+        glVertex3f(x, -x, x);
+        glVertex3f(x,  -x, -x);
+        glVertex3f(-x, -x, -x);
+        glVertex3f(-x, -x, x);
+    glEnd();
+    
+    //prednja strana
+    assign_colors(c.clrs[1], &color);
+    glColor3f(color[0], color[1], color[2]);
+    glBegin(GL_POLYGON);
+        glVertex3f(x, -x, x);
+        glVertex3f(x,  x, x);
+        glVertex3f(-x, x, x);
+        glVertex3f(-x, -x, x);
+    glEnd();
+    
+    //desna strana
+    assign_colors(c.clrs[2], &color);
+    glColor3f(color[0], color[1], color[2]);
+    glBegin(GL_POLYGON);
+        glVertex3f(x, -x, x);
+        glVertex3f(x,  -x, -x);
+        glVertex3f(x, x, -x);
+        glVertex3f(x, x, x);
+    glEnd();
+    
+    //zadnja strana
+    assign_colors(c.clrs[3], &color);
+    glColor3f(color[0], color[1], color[2]);
+    glBegin(GL_POLYGON);
+        glVertex3f(x, -x, -x);
+        glVertex3f(x,  x, -x);
+        glVertex3f(-x, x, -x);
+        glVertex3f(-x, -x, -x);
+    glEnd();
+    //leva strana
+    assign_colors(c.clrs[4], &color);
+    glColor3f(color[0], color[1], color[2]);
+    glBegin(GL_POLYGON);
+        glVertex3f(-x, -x, -x);
+        glVertex3f(-x,  x, -x);
+        glVertex3f(-x, x, x);
+        glVertex3f(-x, -x, x);
+    glEnd();
+    //gornja strana
+    assign_colors(c.clrs[5], &color);
+    glColor3f(color[0], color[1], color[2]);
+    glBegin(GL_POLYGON);
+        glVertex3f(x, x, x);
+        glVertex3f(x,  x, -x);
+        glVertex3f(-x, x, -x);
+        glVertex3f(-x, x, x);
+    glEnd();
 }
-extern void draw_cube3( cube c, double x, double y, double  z){
+/*extern void draw_cube3( cube c, double x, double y, double  z){
     
     
     glColor3f(0, 0, 0);
@@ -99,7 +163,7 @@ extern void draw_cube1(cube c, double x, double y, double  z){
     glEnd();
     
     
-}
+}*/
 void assign_colors(clr t, double (*color)[3]){
     
     if(t==yellow){

@@ -6,12 +6,14 @@
 #define TWO_SIDES (2)
 #define THREE_SIDES (3)
 #define COLOR_MAX (3)
-#define CUBE_MAX (26)
+#define CUBE_MAX (27)
 
 typedef enum all_cube_colors{ white, yellow, blue, green, red, orange} clr;
 typedef struct Cube{
     int type;
-    clr clrs[3];
+    clr clrs[6];
+    double x, y, z;
+    
 }cube;
 
 
@@ -31,8 +33,9 @@ extern void right_rotation(double fi);
 extern void top_rotation(double fi);
 
 extern void assign_colors(enum all_cube_colors t, double (*c)[3]);
-extern void draw_cube(cube c, double x, double y, double  z);
-extern void draw_cube1(cube c, double x, double y, double  z);
-extern void draw_cube2(cube c,  double x, double y, double  z);
-extern void draw_cube3(cube c, double x, double y, double  z);
+extern void draw_cube(cube c);
+// extern void draw_cube1(cube c, double x, double y, double  z);
+// extern void draw_cube2(cube c,  double x, double y, double  z);
+// extern void draw_cube3(cube c, double x, double y, double  z);
 extern void init_colors(cube* c);
+extern void init_rubik();
