@@ -22,9 +22,8 @@ int flag;
 int main(int argc, char **argv){
     
     init_rubik();
-    for(int i=0;i<CUBE_MAX;i++){
-        printf("%lf %lf %lf\n", cubes[i].x, cubes[i].y, cubes[i].z);
-    }
+   
+    
     
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -78,19 +77,10 @@ void init(){
     
    
 
-    //u nizu cubes su poredjani redom od gornjeg do donjeg sloja 
     
     
-    cube c;
     
-    c.clrs[0]=white;
-    c.clrs[1]=yellow;
-    c.clrs[2]=blue;
-    c.clrs[3]=green;
-    c.clrs[4]=red;
-    c.clrs[5]=orange;
-    
-    draw_cube(c);
+    draw_rubik();
     
     
     
@@ -103,8 +93,8 @@ static void on_timer(int value){
     }
     
     fi+=18;
-    //potrebna mi je rotacija tacno za 90 stepeni, medjutim dolazi i do segmentation fault ako se izbrise ovaj if
-    if(fi>90){
+    
+    if(fi<90){
         animation_ongoing=0;
         flag=0;
         return;
@@ -166,57 +156,9 @@ static void on_display(void){
         );
     init();
     
-    //fja provere niza
-    /*for(int i=0;i<CUBE_MAX;i++){
-        
-        if(i<=8){
-            printf("top layer:\n");
-            if(cubes[i].type==THREE_SIDES){
-                printf("%i three\n", i);
-            }
-            else if(cubes[i].type==ONE_SIDE){
-                printf("%i one\n", i);
-            }
-            else if(cubes[i].type==TWO_SIDES){
-                printf("%i two\n", i);
-            }
-        }
-        else if(i>=9 && i<=16){
-            printf("middle layer:\n");
-            if(cubes[i].type==ONE_SIDE){
-                printf("%i one\n", i);
-            }
-            else if(cubes[i].type==TWO_SIDES){
-                printf("%i two\n", i);
-            }
-        }
-        else if(i>=17){
-            printf("bottom layer:\n");
-            if(cubes[i].type==THREE_SIDES){
-                printf("%i three\n", i);
-            }
-            else if(cubes[i].type==ONE_SIDE){
-                printf("%i one\n", i);
-            }
-            else if(cubes[i].type==TWO_SIDES){
-                printf("%i two\n", i);
-            }
-        }
-        printf("boje:\n");
-        for(int j=0;j<3;j++){
-            printf("%i ", cubes[i].clrs[j]);
-        }
-        
-    }*/
     
-    //i bez rotacije se cudno ponasa (bele kockice se rotiraju na dole)
-    
-    if(flag==1){
         
-        printf("flag\n");
-        //right_rotation(fi);
-        printf("rr\n");
-    }
+    
     
     
     glutSwapBuffers();

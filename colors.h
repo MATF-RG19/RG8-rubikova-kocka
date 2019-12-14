@@ -4,6 +4,7 @@
 #define GREEN 0,0.4, 0.2
 #define RED 0.5, 0, 0
 #define ORANGE 1, 0.5, 0
+#define BLACK 0, 0, 0
 
 
 

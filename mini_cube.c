@@ -5,27 +5,11 @@
 #endif
 
 
-/*extern void draw_cube(cube c , double x, double y, double  z){
-    
-    
-    if(c.type==ONE_SIDE){
-        draw_cube1( c, x, y, z);
-        
-    }
-    if(c.type==TWO_SIDES){
-        draw_cube2( c, x, y, z);
-        
-    }
-    if(c.type==THREE_SIDES){
-
-        draw_cube3( c, x, y, z);
-    }
-}*/
 extern void draw_cube(cube c){
     
     double color[3];
     double x;
-    x=0.5;
+    x=0.45;
     
     assign_colors(c.clrs[0], &color);
     glColor3f(color[0], color[1], color[2]);
@@ -85,85 +69,6 @@ extern void draw_cube(cube c){
         glVertex3f(-x, x, x);
     glEnd();
 }
-/*extern void draw_cube3( cube c, double x, double y, double  z){
-    
-    
-    glColor3f(0, 0, 0);
-    glutSolidCube(1);
-    double color1[3];
-    assign_colors(c.clrs[0], &color1);
-    glColor3f(color1[0], color1[1], color1[2]);
-    glBegin(GL_POLYGON);
-        glVertex3f(x, -y, z);
-        glVertex3f(-x,  -y, z);
-        glVertex3f(-x, y, z);
-        glVertex3f(x, y, z);
-    glEnd();
-    double color2[3];
-    assign_colors(c.clrs[1], &color2);
-    glColor3f(color2[0], color2[1], color2[2]);
-    glBegin(GL_POLYGON);
-        glVertex3f(x, -y, x);
-        glVertex3f(x, -y, -x);
-        glVertex3f(x, y, -x);
-        glVertex3f(x, y, x);
-        
-    glEnd();
-    double color3[3];
-    assign_colors(c.clrs[2], &color3);
-    glColor3f(color3[0], color3[1], color3[2]);
-    
-    glBegin(GL_POLYGON);
-        glVertex3f(x, y, z);
-        glVertex3f(x, y, -z);
-        glVertex3f(-x, y, -z);
-        glVertex3f(-x, y, z);
-        
-    glEnd();
-    
-    
-}
-extern void draw_cube2(cube c, double x, double y, double  z){
-    
-    glColor3f(0, 0, 0);
-    glutSolidCube(1);
-    double color1[3];
-    assign_colors(c.clrs[0], &color1);
-    glColor3f(color1[0], color1[1], color1[2]);
-    glBegin(GL_POLYGON);
-        glVertex3f(x, -y, z);
-        glVertex3f(x, y, z);
-        glVertex3f(-x,y, z);
-        glVertex3f(-x, -y, z);
-        
-    glEnd();
-    double color2[3];
-    assign_colors(c.clrs[1], &color2);
-    glColor3f(color2[0], color2[1], color2[2]);
-    glBegin(GL_POLYGON);
-        glVertex3f(x, -y, z);
-        glVertex3f(x, -y, -z);
-        glVertex3f(x, y, -z);
-        glVertex3f(x, y, z);
-    glEnd();
-    
-}
-extern void draw_cube1(cube c, double x, double y, double  z){
-    
-    glColor3f(0, 0, 0);
-    glutSolidCube(1);
-    double color[3];
-    assign_colors(c.clrs[0], &color);
-    glColor3f(color[0], color[1], color[2]);
-    glBegin(GL_POLYGON);
-        glVertex3f(x, -y, z);
-        glVertex3f(x, y, z);
-        glVertex3f(-x, y, z);
-        glVertex3f(-x, -y, z);
-    glEnd();
-    
-    
-}*/
 void assign_colors(clr t, double (*color)[3]){
     
     if(t==yellow){
@@ -209,6 +114,13 @@ void assign_colors(clr t, double (*color)[3]){
         }
         return;
     }
+    if(t==black){
+        double c[]={BLACK};
+        for(int i=0;i<3;i++){
+            (*color)[i]=c[i];
+        }
+        return;
+    }
     
     
 }
@@ -232,6 +144,9 @@ enum all_cube_colors recognize_color(double colors[] ){
     }
     if(colors[0]==1 && colors[1]==0.5 && colors[2]==0){
         return orange;
+    }
+    if(colors[0]==0 && colors[1]==0 && colors[2]==0){
+        return black;
     }
     return -1;
 }

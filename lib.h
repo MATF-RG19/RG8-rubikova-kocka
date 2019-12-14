@@ -8,11 +8,12 @@
 #define COLOR_MAX (3)
 #define CUBE_MAX (27)
 
-typedef enum all_cube_colors{ white, yellow, blue, green, red, orange} clr;
+typedef enum all_cube_colors{ white, yellow, blue, green, red, orange, black} clr;
 typedef struct Cube{
     int type;
     clr clrs[6];
     double x, y, z;
+    GLfloat nx, ny, nz;
     
 }cube;
 
@@ -26,11 +27,9 @@ typedef struct Cube{
 cube cubes[CUBE_MAX];
 
 extern enum all_cube_colors recognize_color(double colors[]);
-extern void top_layer();
-extern void middle_layer();
-extern void bottom_layer();
+
 extern void right_rotation(double fi);
-extern void top_rotation(double fi);
+
 
 extern void assign_colors(enum all_cube_colors t, double (*c)[3]);
 extern void draw_cube(cube c);
