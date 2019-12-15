@@ -16,7 +16,7 @@ typedef struct Cube{
     GLfloat nx, ny, nz;
     
 }cube;
-
+GLfloat rot[16];
 
 
 
@@ -28,13 +28,10 @@ cube cubes[CUBE_MAX];
 
 extern enum all_cube_colors recognize_color(double colors[]);
 
-extern void right_rotation(double fi);
 
-
+extern void draw_rubik(double fi, int flag);
 extern void assign_colors(enum all_cube_colors t, double (*c)[3]);
 extern void draw_cube(cube c);
-// extern void draw_cube1(cube c, double x, double y, double  z);
-// extern void draw_cube2(cube c,  double x, double y, double  z);
-// extern void draw_cube3(cube c, double x, double y, double  z);
 extern void init_colors(cube* c);
 extern void init_rubik();
+

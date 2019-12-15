@@ -13,6 +13,8 @@ extern void draw_cube(cube c){
     
     assign_colors(c.clrs[0], &color);
     glColor3f(color[0], color[1], color[2]);
+    
+    glPushMatrix();
     //donja strana
     glBegin(GL_POLYGON);
         glVertex3f(x, -x, x);
@@ -68,6 +70,8 @@ extern void draw_cube(cube c){
         glVertex3f(-x, x, -x);
         glVertex3f(-x, x, x);
     glEnd();
+    
+    glPopMatrix();
 }
 void assign_colors(clr t, double (*color)[3]){
     

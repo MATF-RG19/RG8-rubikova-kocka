@@ -8,7 +8,6 @@
     #include "lib.h"
 #endif
 
-
 extern void init_rubik(){
     
     
@@ -45,9 +44,15 @@ extern void init_rubik(){
         else{
             cubes[i].z=-1;
         }
-        cubes[i].nx=cubes[i].x;
+        cubes[i].nx=0;
         cubes[i].ny=1;
-        cubes[i].nz=cubes[i].z;
+        cubes[i].nz=0;
+        /*glBegin(GL_POINTS);
+            glNormal3f(cubes[i].nx, cubes[i].ny, cubes[i].nz);
+            glVertex3f(cubes[i].x, cubes[i].y, cubes[i].z);
+        glEnd();*/
+        printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+        
         
     }
     //0 donja, 1 prednja, 2 desna, 3 zadnja, 4 leva, 5 gornja
@@ -92,7 +97,8 @@ extern void init_rubik(){
     
     
 }
-void draw_rubik(){
+void draw_rubik(double fi, int flag){
+
     
     
     for(int i=0;i<CUBE_MAX;i++){
@@ -101,12 +107,173 @@ void draw_rubik(){
         x=cubes[i].x;
         y=cubes[i].y;
         z=cubes[i].z;
+        
+        
         glPushMatrix();
-            glTranslatef(x, y, z);
-            draw_cube(cubes[i]);
+        
+    
+        if(flag==1){
+            if(i%3==0){
+                
+                glRotatef(fi, 1, 0 , 0);
+                if(fi==90 || fi ==-90){
+                    glPushMatrix();
+                        glMatrixMode(GL_MODELVIEW);
+                        glLoadIdentity();
+                        glRotatef(fi, 1, 0 , 0);
+                        glGetFloatv(GL_MODELVIEW_MATRIX, rot);
+                    glPopMatrix();
+                    
+                    printf("pre \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+                    
+                    cubes[i].x=x*rot[0]+y*rot[4]+z*rot[8]+rot[12];
+                    cubes[i].y=x*rot[1]+y*rot[5]+z*rot[9]+rot[13];
+                    cubes[i].z=x*rot[2]+y*rot[6]+z*rot[10]+rot[14];
+                    printf("posle \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+            
+                }
+                    
+            }
+        }
+        else if(flag==2){
+            if(i%3==2){
+                
+                glRotatef(fi, 1, 0 , 0);
+                if(fi==90 || fi ==-90){
+                    glPushMatrix();
+                        glMatrixMode(GL_MODELVIEW);
+                        glLoadIdentity();
+                        glRotatef(fi, 1, 0 , 0);
+                        glGetFloatv(GL_MODELVIEW_MATRIX, rot);
+                    glPopMatrix();
+                    
+                    printf("pre \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+                    
+                    cubes[i].x=x*rot[0]+y*rot[4]+z*rot[8]+rot[12];
+                    cubes[i].y=x*rot[1]+y*rot[5]+z*rot[9]+rot[13];
+                    cubes[i].z=x*rot[2]+y*rot[6]+z*rot[10]+rot[14];
+                            
+                    printf("posle \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+            
+                }
+                
+            }
+        }
+        else if(flag==3){
+            if(i/9==0){
+                glRotatef(fi, 0, 1 , 0);
+                if(fi==90 || fi ==-90){
+                    glPushMatrix();
+                        glMatrixMode(GL_MODELVIEW);
+                        glLoadIdentity();
+                        glRotatef(fi, 0, 1 , 0);
+                        glGetFloatv(GL_MODELVIEW_MATRIX, rot);
+                    glPopMatrix();
+                    
+                    printf("pre \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+                    
+                    cubes[i].x=x*rot[0]+y*rot[4]+z*rot[8]+rot[12];
+                    cubes[i].y=x*rot[1]+y*rot[5]+z*rot[9]+rot[13];
+                    cubes[i].z=x*rot[2]+y*rot[6]+z*rot[10]+rot[14];
+                            
+                    printf("posle \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+            
+                }
+            }
+        }
+        else if(flag==4){
+            if(i/9==2){
+                glRotatef(fi, 0, 1 , 0);
+                if(fi==90 || fi ==-90){
+                    glPushMatrix();
+                        glMatrixMode(GL_MODELVIEW);
+                        glLoadIdentity();
+                        glRotatef(fi, 0, 1 , 0);
+                        glGetFloatv(GL_MODELVIEW_MATRIX, rot);
+                    glPopMatrix();
+                    
+                    printf("pre \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+                    
+                    cubes[i].x=x*rot[0]+y*rot[4]+z*rot[8]+rot[12];
+                    cubes[i].y=x*rot[1]+y*rot[5]+z*rot[9]+rot[13];
+                    cubes[i].z=x*rot[2]+y*rot[6]+z*rot[10]+rot[14];
+                            
+                    printf("posle \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+            
+                }
+            }
+        }
+        else if(flag==5){
+            int m=i;
+            while(m>=0){
+                m-=9;
+            }
+            m+=9;
+            if(m==0 || m==1 || m==2){
+                glRotatef(fi, 0, 0 , 1);
+                if(fi==90 || fi ==-90){
+                    glPushMatrix();
+                        glMatrixMode(GL_MODELVIEW);
+                        glLoadIdentity();
+                        glRotatef(fi, 0, 0 , 1);
+                        glGetFloatv(GL_MODELVIEW_MATRIX, rot);
+                    glPopMatrix();
+                    
+                    printf("pre \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+                    
+                    cubes[i].x=x*rot[0]+y*rot[4]+z*rot[8]+rot[12];
+                    cubes[i].y=x*rot[1]+y*rot[5]+z*rot[9]+rot[13];
+                    cubes[i].z=x*rot[2]+y*rot[6]+z*rot[10]+rot[14];
+                    printf("posle \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+            
+                }
+            }
+        }
+        else if(flag==6){
+            int m=i;
+            while(m>=0){
+                m-=9;
+            }
+            m+=9;
+            if(m==6 || m==7 || m==8){
+                glRotatef(fi, 0, 0 , 1);
+                if(fi==90 || fi ==-90){
+                    glPushMatrix();
+                        glMatrixMode(GL_MODELVIEW);
+                        glLoadIdentity();
+                        glRotatef(fi, 0, 0 , 1);
+                        glGetFloatv(GL_MODELVIEW_MATRIX, rot);
+                    glPopMatrix();
+                    
+                    printf("pre \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+                    
+                    cubes[i].x=x*rot[0]+y*rot[4]+z*rot[8]+rot[12];
+                    cubes[i].y=x*rot[1]+y*rot[5]+z*rot[9]+rot[13];
+                    cubes[i].z=x*rot[2]+y*rot[6]+z*rot[10]+rot[14];
+                            
+                    printf("posle \n");
+                    printf("cubes[%i] xyz %lf %lf %lf\n", i, cubes[i].x, cubes[i].y,cubes[i].z);
+            
+                }
+            }
+        }
+        glTranslatef(x, y, z);
+        draw_cube(cubes[i]);
         glPopMatrix();
-        
-        
-        
     }
+    
 }
+
+
+
