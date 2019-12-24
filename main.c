@@ -20,7 +20,7 @@ double fi=0;
 int factor=18;
 int flag;
 
-int num=0;
+
 
 int main(int argc, char **argv){
     
@@ -41,9 +41,10 @@ int main(int argc, char **argv){
     glutReshapeFunc(on_reshape);
     
     
-    glClearColor(0, 0, 0, 0);
+    glClearColor(0.7, 0.7, 0.7, 0);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_NORMALIZE);
+    
     glutMainLoop();
     
     
@@ -103,6 +104,7 @@ static void on_timer(int value){
     if(fi>90 || fi<-90){
         animation_ongoing=0;
         flag=0;
+        fi=0;
         
         return;
     }
@@ -124,7 +126,6 @@ static void on_keyboard(unsigned char key, int x, int y){
             
             if(animation_ongoing==0){
                 animation_ongoing=1;
-                fi=0;
                 flag=1;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 
@@ -138,7 +139,6 @@ static void on_keyboard(unsigned char key, int x, int y){
             if(animation_ongoing==0){
                 animation_ongoing=1;
                 flag=2;
-                fi=0;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 
                 
@@ -151,7 +151,6 @@ static void on_keyboard(unsigned char key, int x, int y){
             //flag=3
             if(!animation_ongoing){
                 animation_ongoing=1;
-                fi=0;
                 flag=3;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 
@@ -163,7 +162,6 @@ static void on_keyboard(unsigned char key, int x, int y){
             //flag=4
             if(!animation_ongoing){
                 animation_ongoing=1;
-                fi=0;
                 flag=4;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 
@@ -175,7 +173,6 @@ static void on_keyboard(unsigned char key, int x, int y){
 //             flag=5;
             if(!animation_ongoing){
                 animation_ongoing=1;
-                fi=0;
                 flag=5;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 
@@ -187,7 +184,6 @@ static void on_keyboard(unsigned char key, int x, int y){
 //             flag=6;
             if(!animation_ongoing){
                 animation_ongoing=1;
-                fi=0;
                 flag=6;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 

@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include "colors.h"
-#define ONE_SIDE (1)
-#define TWO_SIDES (2)
-#define THREE_SIDES (3)
 #define COLOR_MAX (3)
 #define CUBE_MAX (27)
 
@@ -17,14 +14,9 @@ typedef struct Cube{
     
 }cube;
 GLfloat rot[16];
+//GLfloat matrix[16];
 
-
-
-//niz se inicijalizuje tako sto svaka druga kockica je istog tipa
-//u gornjem sloju su to tipa: tri obojene(indeks paran), dve obojene strane(indeks neparan), jedna obojena strana na poziciji 8, indeksi [0-8]
-//u srednjem sloju su to tipa: dve obojene(indeks neparan) i jedna obojena strana(indeks paran), indeksi [9-16]
-//u donjem sloju su to tipa: tri obojene(indeks neparan), dve obojene strane(indeks paran), jedna obojena strana na poziciji 25,  indeksi [17-25]
-cube cubes[CUBE_MAX];
+ cube cubes[CUBE_MAX];
 
 extern enum all_cube_colors recognize_color(double colors[]);
 

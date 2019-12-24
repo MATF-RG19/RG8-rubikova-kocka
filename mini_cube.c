@@ -17,6 +17,7 @@ extern void draw_cube(cube c){
     glPushMatrix();
     //donja strana
     glBegin(GL_POLYGON);
+        glNormal3f(0.0, -1.0, 0.0);
         glVertex3f(x, -x, x);
         glVertex3f(x,  -x, -x);
         glVertex3f(-x, -x, -x);
@@ -27,6 +28,7 @@ extern void draw_cube(cube c){
     assign_colors(c.clrs[1], &color);
     glColor3f(color[0], color[1], color[2]);
     glBegin(GL_POLYGON);
+        glNormal3f(0.0, 0.0, 1.0);
         glVertex3f(x, -x, x);
         glVertex3f(x,  x, x);
         glVertex3f(-x, x, x);
@@ -37,6 +39,7 @@ extern void draw_cube(cube c){
     assign_colors(c.clrs[2], &color);
     glColor3f(color[0], color[1], color[2]);
     glBegin(GL_POLYGON);
+        glNormal3f(1.0, 0.0, 0.0);
         glVertex3f(x, -x, x);
         glVertex3f(x,  -x, -x);
         glVertex3f(x, x, -x);
@@ -47,6 +50,7 @@ extern void draw_cube(cube c){
     assign_colors(c.clrs[3], &color);
     glColor3f(color[0], color[1], color[2]);
     glBegin(GL_POLYGON);
+        glNormal3f(0.0, 0.0, -1.0);
         glVertex3f(x, -x, -x);
         glVertex3f(x,  x, -x);
         glVertex3f(-x, x, -x);
@@ -56,6 +60,7 @@ extern void draw_cube(cube c){
     assign_colors(c.clrs[4], &color);
     glColor3f(color[0], color[1], color[2]);
     glBegin(GL_POLYGON);
+        glNormal3f(-1.0, 0.0, 0.0);
         glVertex3f(-x, -x, -x);
         glVertex3f(-x,  x, -x);
         glVertex3f(-x, x, x);
@@ -65,6 +70,7 @@ extern void draw_cube(cube c){
     assign_colors(c.clrs[5], &color);
     glColor3f(color[0], color[1], color[2]);
     glBegin(GL_POLYGON);
+        glNormal3f(0.0, 1.0, 0.0);
         glVertex3f(x, x, x);
         glVertex3f(x,  x, -x);
         glVertex3f(-x, x, -x);
