@@ -17,14 +17,14 @@ static void on_timer(int value);
 static void init();
 static int animation_ongoing=0;
 double fi=0;
-int factor=18;
+int factor;
 int flag;
 
 
 
 int main(int argc, char **argv){
     
-    init_rubik();
+    
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -44,6 +44,7 @@ int main(int argc, char **argv){
     glClearColor(0.7, 0.7, 0.7, 0);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_NORMALIZE);
+    init_rubik();
     
     glutMainLoop();
     
@@ -121,78 +122,139 @@ static void on_keyboard(unsigned char key, int x, int y){
             exit(0);
             break;
         case 'r':
+            //flag=1
+            
+            if(animation_ongoing==0){
+                animation_ongoing=1;
+                flag=1;
+                factor=18;
+                glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
+                
+                
+            }
+            
+            break;
         case 'R':
             //flag=1
             
             if(animation_ongoing==0){
                 animation_ongoing=1;
                 flag=1;
+                factor=-18;
+                glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
+            }
+            
+            break;
+            
+        case 'l':
+            //flag=2
+            if(animation_ongoing==0){
+                animation_ongoing=1;
+                flag=2;
+                factor=18;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 
                 
             }
             
             break;
-        case 'l':
         case 'L':
             //flag=2
             if(animation_ongoing==0){
                 animation_ongoing=1;
                 flag=2;
+                factor=-18;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
-                
-                
             }
             
             break;
             
         case 'u':
-        case 'U':
             //flag=3
             if(!animation_ongoing){
                 animation_ongoing=1;
                 flag=3;
+                factor=18;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 
                 
             }
             break;
+            
+        case 'U':
+            //flag=3
+            if(!animation_ongoing){
+                animation_ongoing=1;
+                flag=3;
+                factor=-18;
+                glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
+            }
+            break;
         case 'd':
+            //flag=4
+            if(!animation_ongoing){
+                animation_ongoing=1;
+                flag=4;
+                factor=18;
+                glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
+                
+                
+            }
+            break;
         case 'D':
             //flag=4
             if(!animation_ongoing){
                 animation_ongoing=1;
                 flag=4;
+                factor=-18;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 
                 
             }
             break;
         case 'f':
-        case 'F':
-//             flag=5;
+            //             flag=5;
             if(!animation_ongoing){
                 animation_ongoing=1;
                 flag=5;
+                factor=18;
+                glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
+                
+                
+            }
+            break;
+        case 'F':
+            //             flag=5;
+            if(!animation_ongoing){
+                animation_ongoing=1;
+                flag=5;
+                factor=-18;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 
                 
             }
             break;
         case 'b':
-        case 'B':
-//             flag=6;
+            //             flag=6;
             if(!animation_ongoing){
                 animation_ongoing=1;
                 flag=6;
+                factor=18;
                 glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
                 
                 
             }
             break;
-        case 'i':
-        case 'I':
-            factor=-factor;
+        case 'B':
+//             flag=6;
+            if(!animation_ongoing){
+                animation_ongoing=1;
+                flag=6;
+                factor=-18;
+                glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
+                
+                
+            }
             break;
         case 's':
         case 'S':

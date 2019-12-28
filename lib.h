@@ -10,13 +10,11 @@ typedef struct Cube{
     int type;
     clr clrs[6];
     double x, y, z;
-    GLfloat nx, ny, nz;
+    GLfloat ori[16];
     
 }cube;
 GLfloat rot[16];
-//GLfloat matrix[16];
-
- cube cubes[CUBE_MAX];
+cube cubes[CUBE_MAX];
 
 extern enum all_cube_colors recognize_color(double colors[]);
 
@@ -24,6 +22,6 @@ extern enum all_cube_colors recognize_color(double colors[]);
 extern void draw_rubik(double fi, int flag);
 extern void assign_colors(enum all_cube_colors t, double (*c)[3]);
 extern void draw_cube(cube c);
-extern void init_colors(cube* c);
+void rotate(double fi, int vector[3], cube *c);
 extern void init_rubik();
 

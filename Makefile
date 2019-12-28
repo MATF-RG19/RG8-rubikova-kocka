@@ -1,7 +1,7 @@
 PROGRAM = rubik
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -lm
-LDFLAGS = -lglut -lGLU -lGL
+LDFLAGS = -lglut -lGLU -lGL -lm
 
 
 $(PROGRAM): main.o mini_cube.o cube.o
