@@ -208,6 +208,7 @@ void draw_rubik(double fi, int flag){
         }
         else{
             glTranslatef(cubes[i].x, cubes[i].y, cubes[i].z);
+            glMultMatrixf(cubes[i].ori);
             draw_cube(cubes[i]);
         }
             

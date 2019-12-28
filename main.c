@@ -41,9 +41,11 @@ int main(int argc, char **argv){
     glutReshapeFunc(on_reshape);
     
     
-    glClearColor(0.7, 0.7, 0.7, 0);
+    glClearColor(0, 0, 0, 0);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_NORMALIZE);
+    glShadeModel(GL_SMOOTH);
+    
     init_rubik();
     
     glutMainLoop();
@@ -272,8 +274,27 @@ static void on_reshape(int width, int height){
     window_height = height;
     
 }
-
 static void on_display(void){
+    
+    GLfloat light_position[] = { 6000, 6000, 6000, 0 };
+
+    /* Ambijentalna boja svetla. */
+    GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1 };
+
+    /* Difuzna boja svetla. */
+    GLfloat light_diffuse[] = { 1, 1, 1, 1 };
+
+    /* Spekularna boja svetla. */
+    GLfloat light_specular[] = { 0.9, 0.9, 0.9, 1 };
+
+    /* Koeficijenti ambijentalne refleksije materijala. */
+    GLfloat ambient_coeffs[] = { 1.0, 0.1, 0.1, 1 };
+
+    /* Koeficijenti difuzne refleksije materijala. */
+    GLfloat diffuse_coeffs[] = { 0.5, 0.5, 0.5, 1 };
+
+    /* Koeficijenti spekularne refleksije materijala. */
+    GLfloat specular_coeffs[] = { 1, 1, 1, 1 };
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
@@ -297,12 +318,23 @@ static void on_display(void){
             0, 1, 0
         );
     
+    /* Koeficijent glatkosti materijala. */
+    GLfloat shininess = 20;
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+
+    /* Podesavaju se parametri materijala. */
+    glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_coeffs);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_coeffs);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, specular_coeffs);
+    glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+    glEnable(GL_COLOR_MATERIAL); 
     
-     
     init();    
-    
-    
-    
     
     glutSwapBuffers();
 }
