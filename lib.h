@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <GL/glut.h>
+#include <math.h>
 #include "colors.h"
 #define COLOR_MAX (3)
 #define CUBE_MAX (27)
@@ -13,6 +14,10 @@ typedef struct Cube{
     GLfloat ori[16];
     
 }cube;
+
+
+                
+                
 GLfloat rot[16];
 cube cubes[CUBE_MAX];
 

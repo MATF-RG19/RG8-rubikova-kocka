@@ -12,11 +12,17 @@
 
 static int window_width;
 static int window_height;
+
 static void on_display();
 static void on_keyboard(unsigned char key, int x, int y);
 static void on_reshape(int width, int height);
 static void on_timer(int value);
 static void start_timer(int value);
+
+static int mouse_x, mouse_y;
+static void on_mouse(int button, int state, int x, int y);
+static void on_motion(int x, int y);
+
 static void init();
 static int animation_ongoing=0;
 //angle of rotation
@@ -31,6 +37,8 @@ int flag;
 int count=0;
 //flag for randomizing cube
 int index=0;
+//rotation matrix updated on mouse motion
+static float matrix[16];
 int main(int argc, char **argv){
     
     
@@ -43,8 +51,10 @@ int main(int argc, char **argv){
     glutCreateWindow(argv[0]);
     
     glutKeyboardFunc(on_keyboard);
-    
-    
+    glutMouseFunc(on_mouse);
+    glutMotionFunc(on_motion);
+    mouse_x = 0;
+    mouse_y = 0;
     
     glutDisplayFunc(on_display);
     glutReshapeFunc(on_reshape);
@@ -55,7 +65,9 @@ int main(int argc, char **argv){
     glEnable(GL_NORMALIZE);
     glShadeModel(GL_SMOOTH);
     
-    
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
     
     init_rubik();
     
@@ -105,6 +117,35 @@ void init(){
     
     
 }
+static void on_mouse(int button, int state, int x, int y){
+    mouse_x = x;
+    mouse_y = y;
+}
+static void on_motion(int x, int y)
+{
+    
+    int delta_x, delta_y;
+
+    delta_x = x - mouse_x;
+    delta_y = y - mouse_y;
+
+    mouse_x = x;
+    mouse_y = y;
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+        glLoadIdentity();
+        glRotatef(180 * (float) delta_x / window_width, 0, 1, 0);
+        glRotatef(180 * (float) delta_y / window_height, 1, 0, 0);
+        glMultMatrixf(matrix);
+
+        glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
+    glPopMatrix();
+
+    glutPostRedisplay();
+}
+
+
 void randomize(){
     int s=RAND_MAX/6;
     flag=(rand()/s)+1;
@@ -377,6 +418,7 @@ static void on_display(void){
             0, 1, 0
         );
     
+    glMultMatrixf(matrix);
     
     GLfloat shininess = 20;
     glEnable(GL_LIGHTING);
@@ -385,6 +427,7 @@ static void on_display(void){
     glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
     
     glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_coeffs);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_coeffs);
