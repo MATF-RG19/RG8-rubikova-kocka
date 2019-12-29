@@ -92,6 +92,7 @@ extern void init_rubik(){
     
     
 }
+
 void rotate(double fi, int vector[3], cube *c){
     
     double x, y, z;

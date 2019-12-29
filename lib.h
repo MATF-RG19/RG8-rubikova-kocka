@@ -18,7 +18,7 @@ cube cubes[CUBE_MAX];
 
 extern enum all_cube_colors recognize_color(double colors[]);
 
-
+void randomize();
 extern void draw_rubik(double fi, int flag);
 extern void assign_colors(enum all_cube_colors t, double (*c)[3]);
 extern void draw_cube(cube c);

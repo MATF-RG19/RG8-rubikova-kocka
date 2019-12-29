@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include "lib.h"
-
+#include <sys/time.h>
+#include <time.h>
 #define TIMER_ID (0)
 #define TIMER_INT (100)
 
@@ -17,15 +18,16 @@ static void on_timer(int value);
 static void init();
 static int animation_ongoing=0;
 double fi=0;
+double param=1;
+double animation_parameter=-1.5;
 int factor;
 int flag;
-
-
-
+int count=0;
+int index=0;
 int main(int argc, char **argv){
     
     
-
+    srand(time(0));
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     
@@ -45,6 +47,8 @@ int main(int argc, char **argv){
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_NORMALIZE);
     glShadeModel(GL_SMOOTH);
+    
+    
     
     init_rubik();
     
@@ -94,7 +98,25 @@ void init(){
     
     
 }
-
+void randomize(){
+    int s=RAND_MAX/6;
+    flag=(rand()/s)+1;
+    double clip_plane[]={0, -1, 0, animation_parameter};
+    glClipPlane(GL_CLIP_PLANE0, clip_plane);
+    glEnable(GL_CLIP_PLANE0);
+    if(fi==0 && count<20){
+        param=0.5;
+        factor=18;
+        animation_ongoing=1;
+        glutTimerFunc(TIMER_INT*param, on_timer, TIMER_ID);
+    }
+    if(count>=20){
+        index=0;
+        param=1;
+        glDisable(GL_CLIP_PLANE0);
+    }
+    
+}
 static void on_timer(int value){
     
     if(value!=TIMER_ID){
@@ -102,20 +124,29 @@ static void on_timer(int value){
     }
     
     fi+=factor;
-    
-         
+    if(index){
+        animation_parameter+=0.03;
+    }
     if(fi>90 || fi<-90){
         animation_ongoing=0;
         flag=0;
         fi=0;
         
-        return;
+        if(index){
+            count++;
+            randomize();
+        } 
+        return;        
     }
     
-    
+
     glutPostRedisplay();
-    if (animation_ongoing)
-        glutTimerFunc(TIMER_INT, on_timer, TIMER_ID);
+    if (animation_ongoing){
+        glutTimerFunc(TIMER_INT*param, on_timer, TIMER_ID);
+        
+    }
+        
+        
     
 }
 static void on_keyboard(unsigned char key, int x, int y){
@@ -258,6 +289,14 @@ static void on_keyboard(unsigned char key, int x, int y){
                 
             }
             break;
+        case 't':
+        case 'T':
+            if(!animation_ongoing){
+                index=1;
+                randomize();    
+            }
+            
+            break;
         case 's':
         case 'S':
             animation_ongoing=0;
@@ -275,6 +314,7 @@ static void on_reshape(int width, int height){
     
 }
 static void on_display(void){
+    
     
     GLfloat light_position[] = { 6000, 6000, 6000, 0 };
 
@@ -326,7 +366,7 @@ static void on_display(void){
     glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-
+    
     /* Podesavaju se parametri materijala. */
     glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_coeffs);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_coeffs);
