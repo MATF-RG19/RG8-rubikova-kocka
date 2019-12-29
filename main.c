@@ -6,6 +6,7 @@
 #include <time.h>
 #define TIMER_ID (0)
 #define TIMER_INT (100)
+#define START_TIMER_ID (1)
 
 
 
@@ -15,14 +16,20 @@ static void on_display();
 static void on_keyboard(unsigned char key, int x, int y);
 static void on_reshape(int width, int height);
 static void on_timer(int value);
+static void start_timer(int value);
 static void init();
 static int animation_ongoing=0;
+//angle of rotation
 double fi=0;
+//parameter for timer interval
 double param=1;
 double animation_parameter=-1.5;
 int factor;
+//flag for indicating which rotation is being animated
 int flag;
+//counter for randomizing cube
 int count=0;
+//flag for randomizing cube
 int index=0;
 int main(int argc, char **argv){
     
@@ -113,6 +120,8 @@ void randomize(){
     if(count>=20){
         index=0;
         param=1;
+        animation_parameter=-1.5;
+        count=0;
         glDisable(GL_CLIP_PLANE0);
     }
     
@@ -155,6 +164,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             exit(0);
             break;
         case 'r':
+            //right rotation
             //flag=1
             
             if(animation_ongoing==0){
@@ -168,6 +178,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             
             break;
         case 'R':
+            //inverted right rotation
             //flag=1
             
             if(animation_ongoing==0){
@@ -180,6 +191,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             break;
             
         case 'l':
+            //left rotation
             //flag=2
             if(animation_ongoing==0){
                 animation_ongoing=1;
@@ -192,6 +204,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             
             break;
         case 'L':
+            //inverted left rotation
             //flag=2
             if(animation_ongoing==0){
                 animation_ongoing=1;
@@ -203,6 +216,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             break;
             
         case 'u':
+            //up rotation
             //flag=3
             if(!animation_ongoing){
                 animation_ongoing=1;
@@ -215,6 +229,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             break;
             
         case 'U':
+            //inverted up rotation
             //flag=3
             if(!animation_ongoing){
                 animation_ongoing=1;
@@ -224,6 +239,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'd':
+            //down rotation
             //flag=4
             if(!animation_ongoing){
                 animation_ongoing=1;
@@ -235,6 +251,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'D':
+            //inverted down rotation
             //flag=4
             if(!animation_ongoing){
                 animation_ongoing=1;
@@ -246,7 +263,8 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'f':
-            //             flag=5;
+            //front rotation
+            //flag=5;
             if(!animation_ongoing){
                 animation_ongoing=1;
                 flag=5;
@@ -257,7 +275,8 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'F':
-            //             flag=5;
+            //inverted front rotation
+            //flag=5;
             if(!animation_ongoing){
                 animation_ongoing=1;
                 flag=5;
@@ -268,7 +287,8 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'b':
-            //             flag=6;
+            //back rotation
+            //flag=6;
             if(!animation_ongoing){
                 animation_ongoing=1;
                 flag=6;
@@ -279,6 +299,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'B':
+            //inverted back rotation
 //             flag=6;
             if(!animation_ongoing){
                 animation_ongoing=1;
@@ -291,11 +312,20 @@ static void on_keyboard(unsigned char key, int x, int y){
             break;
         case 't':
         case 'T':
+            //randomize cube
             if(!animation_ongoing){
                 index=1;
                 randomize();    
             }
             
+            break;
+        case 'n':
+        case 'N':
+            //restart cube
+            if(!animation_ongoing){
+                init_rubik();
+                glutPostRedisplay();
+            }
             break;
         case 's':
         case 'S':
@@ -317,23 +347,11 @@ static void on_display(void){
     
     
     GLfloat light_position[] = { 6000, 6000, 6000, 0 };
-
-    /* Ambijentalna boja svetla. */
     GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1 };
-
-    /* Difuzna boja svetla. */
     GLfloat light_diffuse[] = { 1, 1, 1, 1 };
-
-    /* Spekularna boja svetla. */
     GLfloat light_specular[] = { 0.9, 0.9, 0.9, 1 };
-
-    /* Koeficijenti ambijentalne refleksije materijala. */
     GLfloat ambient_coeffs[] = { 1.0, 0.1, 0.1, 1 };
-
-    /* Koeficijenti difuzne refleksije materijala. */
     GLfloat diffuse_coeffs[] = { 0.5, 0.5, 0.5, 1 };
-
-    /* Koeficijenti spekularne refleksije materijala. */
     GLfloat specular_coeffs[] = { 1, 1, 1, 1 };
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -345,20 +363,21 @@ static void on_display(void){
     gluPerspective(
             60,
             window_width/(float)window_height,
-            1, 20);
+            1, 300);
     
     
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    
+    //TODO pomeranje kamere od pozicije -10, -10, 60
+    //do 6, 6, 6
     gluLookAt(
             6, 6, 6,
             0, 0, 0,
             0, 1, 0
         );
     
-    /* Koeficijent glatkosti materijala. */
+    
     GLfloat shininess = 20;
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
@@ -367,7 +386,6 @@ static void on_display(void){
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
     
-    /* Podesavaju se parametri materijala. */
     glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_coeffs);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_coeffs);
     glMaterialfv(GL_FRONT, GL_SPECULAR, specular_coeffs);
