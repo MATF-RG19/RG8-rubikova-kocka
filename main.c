@@ -7,6 +7,7 @@
 #define TIMER_ID (0)
 #define TIMER_INT (100)
 #define START_TIMER_ID (1)
+#define START_TIMER_INT (60)
 
 
 
@@ -39,6 +40,9 @@ int count=0;
 int index=0;
 //rotation matrix updated on mouse motion
 static float matrix[16];
+//start timer variables
+double start_parameter=0;
+static int start_ongoing=1;
 
 int main(int argc, char **argv){
     
@@ -96,6 +100,8 @@ int main(int argc, char **argv){
     init_texture();
     init_rubik();
     
+    if(start_ongoing)
+        glutTimerFunc(START_TIMER_INT, start_timer, START_TIMER_ID);
     glutMainLoop();
     
     
@@ -107,7 +113,7 @@ int main(int argc, char **argv){
 
 void init(){
     
-    glPushMatrix();
+    /*glPushMatrix();
         glColor3f(1,0,0);
         glBegin(GL_LINES);
             glVertex3f(100,0,0);
@@ -131,16 +137,7 @@ void init(){
             glVertex3f(0,0,100);
             glVertex3f(0,0,-100);
         glEnd();
-    glPopMatrix();
-    
-   
-
-    
-    
-    draw_rubik(fi, flag);
-    
-    
-    
+    glPopMatrix();*/
     
 }
 static void on_mouse(int button, int state, int x, int y){
@@ -191,6 +188,20 @@ void randomize(){
         glDisable(GL_CLIP_PLANE0);
     }
     
+}
+static void start_timer(int value){
+    
+    if(value!=START_TIMER_ID){
+        return;
+    }
+    
+    start_parameter+=0.01;
+    
+    
+    glutPostRedisplay();
+    if(start_ongoing){
+        glutTimerFunc(START_TIMER_INT, start_timer, START_TIMER_ID);
+    }
 }
 static void on_timer(int value){
     
@@ -434,8 +445,12 @@ static void on_display(void){
     glLoadIdentity();
     //TODO pomeranje kamere od pozicije -10, -10, 60
     //do 6, 6, 6
+    if(start_parameter>1){
+        start_ongoing=0;
+        start_parameter=1;
+    }
     gluLookAt(
-            -10, -10, 60,
+            -10+16*start_parameter, -10+16*start_parameter, 60-54*start_parameter,
             0, 0, 0,
             0, 1, 0
         );
@@ -446,7 +461,8 @@ static void on_display(void){
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
   
     
-    init();    
+    //init();   
+    draw_rubik(fi, flag);
     title();
     glutSwapBuffers();
 }
