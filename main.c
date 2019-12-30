@@ -39,6 +39,7 @@ int count=0;
 int index=0;
 //rotation matrix updated on mouse motion
 static float matrix[16];
+
 int main(int argc, char **argv){
     
     
@@ -49,6 +50,13 @@ int main(int argc, char **argv){
     glutInitWindowSize(800, 600);
     glutInitWindowPosition(300, 100);
     glutCreateWindow(argv[0]);
+    
+    GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1 };
+    GLfloat light_diffuse[] = { 1, 1, 1, 1 };
+    GLfloat light_specular[] = { 0.9, 0.9, 0.9, 1 };
+    GLfloat ambient_coeffs[] = { 1.0, 0.1, 0.1, 1 };
+    GLfloat diffuse_coeffs[] = { 0.7, 0.7, 0.7, 1 };
+    GLfloat specular_coeffs[] = { 1, 1, 1, 1 };
     
     glutKeyboardFunc(on_keyboard);
     glutMouseFunc(on_mouse);
@@ -61,14 +69,31 @@ int main(int argc, char **argv){
     
     
     glClearColor(0, 0, 0, 0);
-    glEnable(GL_DEPTH_TEST);
     glEnable(GL_NORMALIZE);
     glShadeModel(GL_SMOOTH);
+    glEnable(GL_DEPTH_TEST);
+    
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
     
+    GLfloat shininess = 20;
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+    //BUG problem sa normalama
+    //glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
+    
+    glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_coeffs);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_coeffs);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, specular_coeffs);
+    glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+    glEnable(GL_COLOR_MATERIAL);
+    
+    init_texture();
     init_rubik();
     
     glutMainLoop();
@@ -79,6 +104,7 @@ int main(int argc, char **argv){
     
     
 }
+
 void init(){
     
     glPushMatrix();
@@ -123,7 +149,6 @@ static void on_mouse(int button, int state, int x, int y){
 }
 static void on_motion(int x, int y)
 {
-    
     int delta_x, delta_y;
 
     delta_x = x - mouse_x;
@@ -202,6 +227,7 @@ static void on_timer(int value){
 static void on_keyboard(unsigned char key, int x, int y){
     switch (key) {
         case 27:
+            glDeleteTextures(1, &name);
             exit(0);
             break;
         case 'r':
@@ -384,19 +410,15 @@ static void on_reshape(int width, int height){
     window_height = height;
     
 }
+
 static void on_display(void){
     
     
-    GLfloat light_position[] = { 6000, 6000, 6000, 0 };
-    GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1 };
-    GLfloat light_diffuse[] = { 1, 1, 1, 1 };
-    GLfloat light_specular[] = { 0.9, 0.9, 0.9, 1 };
-    GLfloat ambient_coeffs[] = { 1.0, 0.1, 0.1, 1 };
-    GLfloat diffuse_coeffs[] = { 0.5, 0.5, 0.5, 1 };
-    GLfloat specular_coeffs[] = { 1, 1, 1, 1 };
+    
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
+    
+    
     glViewport(0, 0, window_width, window_height);
     
     glMatrixMode(GL_PROJECTION);
@@ -413,29 +435,18 @@ static void on_display(void){
     //TODO pomeranje kamere od pozicije -10, -10, 60
     //do 6, 6, 6
     gluLookAt(
-            6, 6, 6,
+            -10, -10, 60,
             0, 0, 0,
             0, 1, 0
         );
     
     glMultMatrixf(matrix);
+    GLfloat light_position[] = { 1000, 1000, 1000, 0 };
     
-    GLfloat shininess = 20;
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-    
-    glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_coeffs);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_coeffs);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, specular_coeffs);
-    glMaterialf(GL_FRONT, GL_SHININESS, shininess);
-    glEnable(GL_COLOR_MATERIAL); 
+  
     
     init();    
-    
+    title();
     glutSwapBuffers();
 }
