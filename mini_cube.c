@@ -44,8 +44,8 @@ extern void draw_cube(cube c){
         glVertex3f(-x, x, x);
         glVertex3f(-x, -x, x);
     glEnd();
-    glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-        printf("prednja %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
+//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
+//         printf("prednja %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     //desna strana
     assign_colors(c.clrs[2], &color);
     glColor3f(color[0], color[1], color[2]);
@@ -60,8 +60,8 @@ extern void draw_cube(cube c){
         glVertex3f(x, x, -x);
         glVertex3f(x, x, x);
     glEnd();
-    glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-        printf("desna %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
+//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
+//         printf("desna %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     //zadnja strana
     assign_colors(c.clrs[3], &color);
     glColor3f(color[0], color[1], color[2]);
@@ -76,8 +76,8 @@ extern void draw_cube(cube c){
         glVertex3f(-x, x, -x);
         glVertex3f(-x, -x, -x);
     glEnd();
-    glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-        printf("zadnja %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
+//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
+//         printf("zadnja %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     //leva strana
     assign_colors(c.clrs[4], &color);
     glColor3f(color[0], color[1], color[2]);
@@ -92,8 +92,8 @@ extern void draw_cube(cube c){
         glVertex3f(-x, x, x);
         glVertex3f(-x, -x, x);
     glEnd();
-    glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-        printf("leva %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
+//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
+//         printf("leva %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     //gornja strana
     assign_colors(c.clrs[5], &color);
     glColor3f(color[0], color[1], color[2]);
@@ -108,8 +108,8 @@ extern void draw_cube(cube c){
         glVertex3f(-x, x, -x);
         glVertex3f(-x, x, x);
     glEnd();
-    glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-        printf("gornja %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
+//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
+//         printf("gornja %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     glPopMatrix();
     
 }

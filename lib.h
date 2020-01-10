@@ -7,7 +7,7 @@
 #define COLOR_MAX (3)
 #define CUBE_MAX (27)
 
-#define FILENAME0 "1.bmp"
+#define FILENAME0 "sume.bmp"
 //texture name
 static GLuint name;
 

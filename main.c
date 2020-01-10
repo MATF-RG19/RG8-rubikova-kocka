@@ -14,6 +14,7 @@
 static int window_width;
 static int window_height;
 
+
 static void on_display();
 static void on_keyboard(unsigned char key, int x, int y);
 static void on_reshape(int width, int height);
@@ -51,8 +52,8 @@ int main(int argc, char **argv){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     
-    glutInitWindowSize(800, 600);
-    glutInitWindowPosition(300, 100);
+    glutInitWindowSize(1920, 1080);
+    glutInitWindowPosition(500, 250);
     glutCreateWindow(argv[0]);
     
     GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1 };
@@ -108,36 +109,6 @@ int main(int argc, char **argv){
 
     return 0;
     
-    
-}
-
-void init(){
-    
-    /*glPushMatrix();
-        glColor3f(1,0,0);
-        glBegin(GL_LINES);
-            glVertex3f(100,0,0);
-            glVertex3f(-100,0,0);
-        glEnd();
-    glPopMatrix();
-
-    //Iscrtavanje y ose
-    glPushMatrix();
-        glColor3f(0,1,0); 
-        glBegin(GL_LINES); 
-            glVertex3f(0,-100,0);
-            glVertex3f(0,100,0);
-        glEnd();
-    glPopMatrix();
-
-    //Iscrtavanje z ose
-    glPushMatrix();
-        glColor3f(0,0,1); 
-        glBegin(GL_LINES);
-            glVertex3f(0,0,100);
-            glVertex3f(0,0,-100);
-        glEnd();
-    glPopMatrix();*/
     
 }
 static void on_mouse(int button, int state, int x, int y){
@@ -245,7 +216,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             //right rotation
             //flag=1
             
-            if(animation_ongoing==0){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=1;
                 factor=18;
@@ -259,7 +230,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             //inverted right rotation
             //flag=1
             
-            if(animation_ongoing==0){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=1;
                 factor=-18;
@@ -271,7 +242,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'l':
             //left rotation
             //flag=2
-            if(animation_ongoing==0){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=2;
                 factor=18;
@@ -284,7 +255,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'L':
             //inverted left rotation
             //flag=2
-            if(animation_ongoing==0){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=2;
                 factor=-18;
@@ -296,7 +267,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'u':
             //up rotation
             //flag=3
-            if(!animation_ongoing){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=3;
                 factor=18;
@@ -309,7 +280,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'U':
             //inverted up rotation
             //flag=3
-            if(!animation_ongoing){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=3;
                 factor=-18;
@@ -319,7 +290,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'd':
             //down rotation
             //flag=4
-            if(!animation_ongoing){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=4;
                 factor=18;
@@ -331,7 +302,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'D':
             //inverted down rotation
             //flag=4
-            if(!animation_ongoing){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=4;
                 factor=-18;
@@ -343,7 +314,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'f':
             //front rotation
             //flag=5;
-            if(!animation_ongoing){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=5;
                 factor=18;
@@ -355,7 +326,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'F':
             //inverted front rotation
             //flag=5;
-            if(!animation_ongoing){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=5;
                 factor=-18;
@@ -367,7 +338,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'b':
             //back rotation
             //flag=6;
-            if(!animation_ongoing){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=6;
                 factor=18;
@@ -379,7 +350,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'B':
             //inverted back rotation
 //             flag=6;
-            if(!animation_ongoing){
+            if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=6;
                 factor=-18;
@@ -391,7 +362,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 't':
         case 'T':
             //randomize cube
-            if(!animation_ongoing){
+            if(!animation_ongoing && !start_ongoing){
                 index=1;
                 randomize();    
             }
@@ -400,7 +371,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 'n':
         case 'N':
             //restart cube
-            if(!animation_ongoing){
+            if(!animation_ongoing && !start_ongoing){
                 init_rubik();
                 glutPostRedisplay();
             }
@@ -408,6 +379,7 @@ static void on_keyboard(unsigned char key, int x, int y){
         case 's':
         case 'S':
             animation_ongoing=0;
+            start_ongoing=0;
             break;
         default:
             animation_ongoing=0;
@@ -437,18 +409,13 @@ static void on_display(void){
     gluPerspective(
             60,
             window_width/(float)window_height,
-            1, 300);
+            1, 60);
     
     
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    //TODO pomeranje kamere od pozicije -10, -10, 60
-    //do 6, 6, 6
-    if(start_parameter>1){
-        start_ongoing=0;
-        start_parameter=1;
-    }
+    
     gluLookAt(
             -10+16*start_parameter, -10+16*start_parameter, 60-54*start_parameter,
             0, 0, 0,
@@ -461,7 +428,14 @@ static void on_display(void){
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
   
     
-    //init();   
+    double clip_plane[]={0, 0, -1, 5};
+    glClipPlane(GL_CLIP_PLANE1, clip_plane);
+            
+    if(start_parameter>=1){
+        start_ongoing=0;
+        start_parameter=1;
+        glEnable(GL_CLIP_PLANE1);
+    }
     draw_rubik(fi, flag);
     title();
     glutSwapBuffers();

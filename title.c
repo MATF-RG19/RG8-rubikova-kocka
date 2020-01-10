@@ -49,13 +49,13 @@ void title(){
         glTexCoord2f(0, 0);
         glVertex3f(-21, -10, 25);
 
-         glTexCoord2f(0, 5);
+         glTexCoord2f(1, 0);
         glVertex3f(-20, -10, 25);
 
-         glTexCoord2f(5, 5);
+         glTexCoord2f(1, 1);
         glVertex3f(-20, 0, 25);
 
-         glTexCoord2f(5, 0);
+         glTexCoord2f(0, 1);
         glVertex3f(-21, 0, 25);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -67,13 +67,13 @@ void title(){
         glTexCoord2f(0, 0);
         glVertex3f(-20, -1, 25);
 
-         glTexCoord2f(2, 0);
+         glTexCoord2f(0, 0.5);
         glVertex3f(-17, -1, 25);
 
-         glTexCoord2f(2, 2);
+         glTexCoord2f(0.5, 0.5);
         glVertex3f(-17, 0, 25);
 
-         glTexCoord2f(0, 2);
+         glTexCoord2f(0.5, 0);
         glVertex3f(-20, 0, 25);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -86,13 +86,13 @@ void title(){
          glTexCoord2f(0, 0);
         glVertex3f(-18, -1, 25);
 
-          glTexCoord2f(0, 2);
+          glTexCoord2f(0, 0.5);
         glVertex3f(-17, -1, 25);
 
-          glTexCoord2f(2, 2);
+          glTexCoord2f(0.75, 0.5);
         glVertex3f(-17, -4, 25);
 
-          glTexCoord2f(2, 0);
+          glTexCoord2f(0.75, 0);
         glVertex3f(-18, -4, 25);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -103,13 +103,13 @@ void title(){
         glTexCoord2f(0, 0);
         glVertex3f(-20, -5, 25);
 
-        glTexCoord2f(2, 0);
+        glTexCoord2f(0, 0.5);
         glVertex3f(-17, -5, 25);
 
-        glTexCoord2f(2, 2);
+        glTexCoord2f(0.5, 0.5);
         glVertex3f(-17, -4, 25);
 
-        glTexCoord2f(0, 2);
+        glTexCoord2f(0.5, 0);
         glVertex3f(-20, -4, 25);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -120,13 +120,13 @@ void title(){
         glTexCoord2f(0, 0);
         glVertex3f(-18, -10, 25);
 
-        glTexCoord2f(2, 0);
+        glTexCoord2f(1, 0);
         glVertex3f(-17, -10, 25);
 
-        glTexCoord2f(2, 2);
+        glTexCoord2f(1, 1);
         glVertex3f(-19, -5, 25);
 
-        glTexCoord2f(0, 2);
+        glTexCoord2f(0, 1);
         glVertex3f(-20, -5, 25);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -156,13 +156,13 @@ void title(){
         glTexCoord2f(0, 0);
         glVertex3f(-14, -10, 25);
 
-        glTexCoord2f(1, 0);
+        glTexCoord2f(0, 1);
         glVertex3f(-12, -10, 25);
 
-        glTexCoord2f(1, 1);
+        glTexCoord2f(0.5, 1);
         glVertex3f(-12, -9, 25);
 
-        glTexCoord2f(0, 1);
+        glTexCoord2f(0.5, 0);
         glVertex3f(-14, -9, 25);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -209,13 +209,13 @@ void title(){
         glTexCoord2f(0, 0);
         glVertex3f(-8, -7, 25);
 
-        glTexCoord2f(1, 0);
+        glTexCoord2f(0, 1);
         glVertex3f(-6, -7, 25);
 
-        glTexCoord2f(1, 1);
+        glTexCoord2f(0.5, 1);
         glVertex3f(-6, -6, 25);
 
-        glTexCoord2f(0, 1);
+        glTexCoord2f(0.5, 0);
         glVertex3f(-8, -6, 25);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -243,13 +243,13 @@ void title(){
         glTexCoord2f(0, 0);
         glVertex3f(-8, -10, 25);
 
-        glTexCoord2f(1, 0);
+        glTexCoord2f(0, 1);
         glVertex3f(-6, -10, 25);
 
-        glTexCoord2f(1, 1);
+        glTexCoord2f(0.5, 1);
         glVertex3f(-6, -9, 25);
 
-        glTexCoord2f(0, 1);
+        glTexCoord2f(0.5, 0);
         glVertex3f(-8, -9, 25);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -279,10 +279,10 @@ void title(){
         glTexCoord2f(0, 0);
         glVertex3f(-1, -10, 25);
 
-        glTexCoord2f(1, 0);
+        glTexCoord2f(0.5, 0);
         glVertex3f(0, -10, 25);
 
-        glTexCoord2f(1, 1);
+        glTexCoord2f(0.5, 1);
         glVertex3f(0, -2, 25);
 
         glTexCoord2f(0, 1);
@@ -296,10 +296,10 @@ void title(){
         glTexCoord2f(0, 0);
         glVertex3f(0, -7, 25);
 
-        glTexCoord2f(1, 0);
+        glTexCoord2f(0.5, 0);
         glVertex3f(1, -7, 25);
 
-        glTexCoord2f(1, 1);
+        glTexCoord2f(0.5, 1);
         glVertex3f(2, -4, 25);
 
         glTexCoord2f(0, 1);
@@ -313,10 +313,10 @@ void title(){
         glTexCoord2f(0, 0);
         glVertex3f(1, -10, 25);
 
-        glTexCoord2f(1, 0);
+        glTexCoord2f(0.5, 0);
         glVertex3f(2, -10, 25);
 
-        glTexCoord2f(1, 1);
+        glTexCoord2f(0.5, 1);
         glVertex3f(1, -7, 25);
 
         glTexCoord2f(0, 1);

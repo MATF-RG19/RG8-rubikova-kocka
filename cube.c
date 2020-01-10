@@ -141,7 +141,7 @@ void rotate(double fi, int vector[3], cube *c){
         
     
         if(fi==90 || fi ==-90){
-        printf("90 stepeni\n");
+        
         glPushMatrix();
             glMatrixMode(GL_MODELVIEW);
             glLoadIdentity();
@@ -173,13 +173,11 @@ void draw_rubik(double fi, int flag){
         if(flag==1){
             
             if(cubes[i].x==1){
-                printf("RIGHT\n");
-                printf("i %i\n", i);
                 int vector[3]={1, 0, 0};
                 rotate(fi, vector, &(cubes[i]));
             }
             else{
-                printf("else\n");
+                
                 glTranslatef(cubes[i].x, cubes[i].y, cubes[i].z);
                 glMultMatrixf(cubes[i].ori);
                 draw_cube(cubes[i]);
