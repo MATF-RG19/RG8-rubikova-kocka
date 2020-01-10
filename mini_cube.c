@@ -16,103 +16,69 @@ extern void draw_cube(cube c){
     
     glPushMatrix();
     //donja strana
-//     int i, j, k;
-//     i=0;
-//     j=1;
-//     k=2;
     glBegin(GL_POLYGON);
-        //glNormal3f(c.normals[i], c.normals[j], c.normals[k]);
         glNormal3f(0, -1, 0);
         glVertex3f(x, -x, x);
         glVertex3f(x,  -x, -x);
         glVertex3f(-x, -x, -x);
         glVertex3f(-x, -x, x);
     glEnd();
-//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-//     printf("donja %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     //prednja strana
     assign_colors(c.clrs[1], &color);
     glColor3f(color[0], color[1], color[2]);
-//     i=3;
-//     j=4;
-//     k=5;
     glBegin(GL_POLYGON);
-//         glNormal3f(c.normals[i], c.normals[j], c.normals[k]);
         glNormal3f(0, 0, 1);
         glVertex3f(x, -x, x);
         glVertex3f(x,  x, x);
         glVertex3f(-x, x, x);
         glVertex3f(-x, -x, x);
     glEnd();
-//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-//         printf("prednja %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     //desna strana
     assign_colors(c.clrs[2], &color);
     glColor3f(color[0], color[1], color[2]);
-//     i=6;
-//     j=7;
-//     k=8;
     glBegin(GL_POLYGON);
-//         glNormal3f(c.normals[i], c.normals[j], c.normals[k]);
         glNormal3f(1, 0, 0);
         glVertex3f(x, -x, x);
         glVertex3f(x,  -x, -x);
         glVertex3f(x, x, -x);
         glVertex3f(x, x, x);
     glEnd();
-//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-//         printf("desna %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     //zadnja strana
     assign_colors(c.clrs[3], &color);
     glColor3f(color[0], color[1], color[2]);
-//     i=9;
-//     j=10;
-//     k=11;
+
     glBegin(GL_POLYGON);
-//         glNormal3f(c.normals[i], c.normals[j], c.normals[k]);
         glNormal3f(0, 0, -1);
         glVertex3f(x, -x, -x);
         glVertex3f(x,  x, -x);
         glVertex3f(-x, x, -x);
         glVertex3f(-x, -x, -x);
     glEnd();
-//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-//         printf("zadnja %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     //leva strana
     assign_colors(c.clrs[4], &color);
     glColor3f(color[0], color[1], color[2]);
-//     i=12;
-//     j=13;
-//     k=14;
     glBegin(GL_POLYGON);
-//         glNormal3f(c.normals[i], c.normals[j], c.normals[k]);
+
         glNormal3f(-1, 0, 0);
         glVertex3f(-x, -x, -x);
         glVertex3f(-x,  x, -x);
         glVertex3f(-x, x, x);
         glVertex3f(-x, -x, x);
     glEnd();
-//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-//         printf("leva %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     //gornja strana
     assign_colors(c.clrs[5], &color);
     glColor3f(color[0], color[1], color[2]);
-//     i=15;
-//     j=16;
-//     k=17;
     glBegin(GL_POLYGON);
-//         glNormal3f(c.normals[i], c.normals[j], c.normals[k]);
         glNormal3f(0, 1, 0);
         glVertex3f(x, x, x);
         glVertex3f(x,  x, -x);
         glVertex3f(-x, x, -x);
         glVertex3f(-x, x, x);
     glEnd();
-//     glGetFloatv(GL_CURRENT_NORMAL, curr_normal);
-//         printf("gornja %f %f %f\n", curr_normal[0], curr_normal[1], curr_normal[2]);
     glPopMatrix();
     
 }
+//funkcija za inicijalizaciju niza color u koji se smestaju RGB vrednosti 
 void assign_colors(clr t, double (*color)[3]){
     
     if(t==yellow){
@@ -168,7 +134,7 @@ void assign_colors(clr t, double (*color)[3]){
     
     
 }
-
+//funkcija za odredjivanje boje na osnovu enum vrednosti
 enum all_cube_colors recognize_color(double colors[] ){
     
     if(colors[0]==1 && colors[1]==1 && colors[2]==1){
@@ -193,11 +159,4 @@ enum all_cube_colors recognize_color(double colors[] ){
         return black;
     }
     return -1;
-}
-
-void init_colors(cube *c){
-    
-    for(int i=0;i<3;i++){
-        c->clrs[i]=-1;
-    }
 }

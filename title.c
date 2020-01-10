@@ -40,7 +40,7 @@ void init_texture(){
     image_done(image);
 }
 void title(){
-    //R
+    //iscrtavanje slova R
     
     glBindTexture(GL_TEXTURE_2D, name);
     glBegin(GL_QUADS);
@@ -131,7 +131,7 @@ void title(){
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    //U
+    //iscrtavanje slova u
     glBindTexture(GL_TEXTURE_2D, name);
     glBegin(GL_QUADS);
         glNormal3f(0, 0, 1);
@@ -184,7 +184,7 @@ void title(){
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    //b
+    //iscrtavanje slova b
     glBindTexture(GL_TEXTURE_2D, name);
     glBegin(GL_QUADS);
         glNormal3f(0, 0, 1);
@@ -253,7 +253,7 @@ void title(){
         glVertex3f(-8, -9, 25);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
-    //I
+    //iscrtavanje slova i
     glBindTexture(GL_TEXTURE_2D, name);
     glBegin(GL_QUADS);
         glNormal3f(0, 0, 1);
@@ -271,7 +271,7 @@ void title(){
         glVertex3f(-4.5, -6, 25);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
-    //K
+    //iscrtavanje slova k
     glBindTexture(GL_TEXTURE_2D, name);
     glBegin(GL_QUADS);
         glNormal3f(0, 0, 1);

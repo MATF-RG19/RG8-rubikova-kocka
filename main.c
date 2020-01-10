@@ -25,23 +25,22 @@ static int mouse_x, mouse_y;
 static void on_mouse(int button, int state, int x, int y);
 static void on_motion(int x, int y);
 
-static void init();
 static int animation_ongoing=0;
-//angle of rotation
+//ugao rotacije
 double fi=0;
-//parameter for timer interval
+//parametar za podesavanje intervala tajmera
 double param=1;
 double animation_parameter=-1.5;
 int factor;
-//flag for indicating which rotation is being animated
+//flag koji govori koja rotacija se izvrsava
 int flag;
-//counter for randomizing cube
+//brojac za randomizaciju kocke
 int count=0;
-//flag for randomizing cube
+//flag za randomizaciju kockice, pokrece tajmer sve dok se ne izvrsi 20 rotacija
 int index=0;
-//rotation matrix updated on mouse motion
+//matrica rotacije koja se azurira na pomeraj misa
 static float matrix[16];
-//start timer variables
+//promenljive za pocetnu animaciju
 double start_parameter=0;
 static int start_ongoing=1;
 
@@ -89,9 +88,7 @@ int main(int argc, char **argv){
     glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    //BUG problem sa normalama
-    //glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_coeffs);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_coeffs);
     glMaterialfv(GL_FRONT, GL_SPECULAR, specular_coeffs);
@@ -101,6 +98,8 @@ int main(int argc, char **argv){
     init_texture();
     init_rubik();
     
+    
+    //poziv pocetne animacije
     if(start_ongoing)
         glutTimerFunc(START_TIMER_INT, start_timer, START_TIMER_ID);
     glutMainLoop();
@@ -138,13 +137,16 @@ static void on_motion(int x, int y)
     glutPostRedisplay();
 }
 
-
+//randomizacija kockice
 void randomize(){
+    
     int s=RAND_MAX/6;
     flag=(rand()/s)+1;
+    
     double clip_plane[]={0, -1, 0, animation_parameter};
     glClipPlane(GL_CLIP_PLANE0, clip_plane);
     glEnable(GL_CLIP_PLANE0);
+    
     if(fi==0 && count<20){
         param=0.5;
         factor=18;
@@ -160,6 +162,7 @@ void randomize(){
     }
     
 }
+//tajmer za pocetnu animaciju
 static void start_timer(int value){
     
     if(value!=START_TIMER_ID){
@@ -174,6 +177,7 @@ static void start_timer(int value){
         glutTimerFunc(START_TIMER_INT, start_timer, START_TIMER_ID);
     }
 }
+//tajmer za animaciju rotacija
 static void on_timer(int value){
     
     if(value!=TIMER_ID){
@@ -213,8 +217,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             exit(0);
             break;
         case 'r':
-            //right rotation
-            //flag=1
+            //rotacija desne strane, flag=1
             
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
@@ -227,8 +230,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             
             break;
         case 'R':
-            //inverted right rotation
-            //flag=1
+            //invertovana rotacija desne strane, flag=1
             
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
@@ -240,8 +242,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             break;
             
         case 'l':
-            //left rotation
-            //flag=2
+            //rotacija leve strane, flag=2
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=2;
@@ -253,8 +254,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             
             break;
         case 'L':
-            //inverted left rotation
-            //flag=2
+            //invertovana rotacija leve strane, flag=2
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=2;
@@ -265,8 +265,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             break;
             
         case 'u':
-            //up rotation
-            //flag=3
+            //rotacija gornje strane, flag=3
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=3;
@@ -278,8 +277,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             break;
             
         case 'U':
-            //inverted up rotation
-            //flag=3
+            //invertovana rotacija gornje strane, flag=3
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=3;
@@ -288,8 +286,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'd':
-            //down rotation
-            //flag=4
+            //rotacija donje strane, flag=4
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=4;
@@ -300,8 +297,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'D':
-            //inverted down rotation
-            //flag=4
+            //invertovana rotacija donje strane, flag=4
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=4;
@@ -312,8 +308,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'f':
-            //front rotation
-            //flag=5;
+            //rotacija prednje strane, flag=5
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=5;
@@ -324,8 +319,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'F':
-            //inverted front rotation
-            //flag=5;
+            //invertovana rotacija prednje strane, flag=5
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=5;
@@ -336,8 +330,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'b':
-            //back rotation
-            //flag=6;
+            //rotacija zadnje strane, flag=6
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=6;
@@ -348,8 +341,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             }
             break;
         case 'B':
-            //inverted back rotation
-//             flag=6;
+            //invertovana rotacija prednje strane, flag=6
             if(!animation_ongoing && !start_ongoing){
                 animation_ongoing=1;
                 flag=6;
@@ -361,7 +353,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             break;
         case 't':
         case 'T':
-            //randomize cube
+            //randomizacija kocke
             if(!animation_ongoing && !start_ongoing){
                 index=1;
                 randomize();    
@@ -370,7 +362,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             break;
         case 'n':
         case 'N':
-            //restart cube
+            //restartovanje kocke
             if(!animation_ongoing && !start_ongoing){
                 init_rubik();
                 glutPostRedisplay();
@@ -378,6 +370,7 @@ static void on_keyboard(unsigned char key, int x, int y){
             break;
         case 's':
         case 'S':
+            //zaustavljanje animacija
             animation_ongoing=0;
             start_ongoing=0;
             break;
@@ -430,13 +423,17 @@ static void on_display(void){
     
     double clip_plane[]={0, 0, -1, 5};
     glClipPlane(GL_CLIP_PLANE1, clip_plane);
-            
+    
+    
+    //sakrivanje naslova posle zavrsetka pocetne animacije
     if(start_parameter>=1){
         start_ongoing=0;
         start_parameter=1;
         glEnable(GL_CLIP_PLANE1);
     }
+    //iscrtavanje Rubikove kocke
     draw_rubik(fi, flag);
+    //iscrtavanje naslova
     title();
     glutSwapBuffers();
 }

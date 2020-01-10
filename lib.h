@@ -5,25 +5,30 @@
 #include "colors.h"
 #include "image.h"
 #define COLOR_MAX (3)
+//broj kockica od kojih se sastoji Rubikova kocka
 #define CUBE_MAX (27)
 
+//ime teksture
 #define FILENAME0 "sume.bmp"
-//texture name
+
 static GLuint name;
 
+
 typedef enum all_cube_colors{ white, yellow, blue, green, red, orange, black} clr;
+
 typedef struct Cube{
-    int type;
+    //enum niz koji sadrzi po boju za svaku stranu kockice
     clr clrs[6];
+    //koordinate kockice
     double x, y, z;
+    //matrica orijentacije kockice
     GLfloat ori[16];
-    //double normals[18];
     
 }cube;
 
 
                 
-                
+//matrica rotacije Rubikove kocke                
 GLfloat rot[16];
 cube cubes[CUBE_MAX];
 
