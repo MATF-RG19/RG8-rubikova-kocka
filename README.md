@@ -19,7 +19,7 @@ Kontrole:
 
 
 Moguce je i animiranje invertovanih rotacija, pritisnuti Shift i neki od tastera za rotacije istovremeno.
-Klikom na mis i prevlacenjem moze se sagledati kocka sa svih strana.
+Klikom na mis i prevlacenjem moze se sagledati kocka sa svih strana. Pritiskom na taster se uvek rotiraju iste strane, nezavisno od pomeranja Rubikove kocke misem.
 
 Pokretanje:
 Pozicionirati se u .../RG8-rubikova-kocka, pokrenuti komandu make, zatim  ./rubik.
