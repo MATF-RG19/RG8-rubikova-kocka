@@ -10,6 +10,9 @@
 
 //inicijalizacija informacija svake kockice 
 //inicijalizacija pozicija, boja i matrice rotacije
+//numerisu se kockice po redovima (gornji, srednji, donji red)
+// gornji sloj ima kockice sa indeksom od 0 do 8, srednji od 9 do 17, donji od 18 do 26
+//u zavisnosti od indeksa kockice, inicijalizuju se njegove koordinate
 extern void init_rubik(){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
